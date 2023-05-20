@@ -1,9 +1,11 @@
 #ifndef INTERSECT_202304111828_H
 #define INTERSECT_202304111828_H
 
+#include "collision/shapes/AABB.h"
+#include "collision/shapes/LineSegment.h"
+
 bool intersect(const AABB& a, const AABB& b);
-bool intersect(const LineSegment* line_segment, const AABB* box, float& out_t, Plane& out_norm)
-Wall collides_with_wall(LineSegment line);
+bool intersect(const LineSegment* line_segment, const AABB* box, float& out_t, Side& out_norm)
 bool near_equal(float a, float b, float epsilon = 0.001f);
 bool near_zero(float a, float epsilon = 0.001f);
 
