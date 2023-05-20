@@ -3,6 +3,7 @@
 
 #include "collision/shapes/AABB.h"
 #include "collision/shapes/LineSegment.h"
+#include "collision/utility/Side.h"
 
 bool intersect(const AABB& a, const AABB& b);
 bool intersect(const LineSegment* line_segment, const AABB* box, float& out_t, Side& out_norm)
