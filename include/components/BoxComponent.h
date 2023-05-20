@@ -1,6 +1,11 @@
 #ifndef BOX_COMPONENT_202304111625_H
 #define BOX_COMPONENT_202304111625_H
 
+#include "components/Component.h"
+#include "actors/Actor.h"
+#include "collision/shapes/AABB.h"
+#include <memory>
+
 class BoxComponent : public Component
 {
 public:

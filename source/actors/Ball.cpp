@@ -1,4 +1,18 @@
-#include "actors/Ball.h"
+#include "actors/Ball.h
+#include "actors/Actor.h"
+#include "Game.h"
+#include "components/MoveComponent.h"
+#include "components/SpriteComponent.h"
+#include "rendering/VertexArray.h"
+#include "Constants.h"
+#include "Player.h"
+#include "collision/shapes/LineSegment.h"
+#include "collision/utility/Side.h"
+#include "collision/utility/Intersect.h"
+#include <glm/vec2.hpp>
+#include <memory>
+#include <array>
+#include <cmath>
 
 Ball::Ball(Game* owner)
   : Actor(owner),
@@ -30,11 +44,6 @@ Ball::~Ball()
   --m_instances;
 }
 
-void Ball::accept(ActorVisitor* visitor)
-{
-  visitor->visit_ball(this);
-}
-
 void Ball::component_update(float delta_time)
 {
   m_move_component->update(delta_time);
@@ -42,21 +51,21 @@ void Ball::component_update(float delta_time)
 
 void Ball::actor_update()
 {
-  if (m_position.x - m_scale < Constants::LEFT_WALL) {
-    kill();
+  if ((m_position.x - m_scale) < Constants::LEFT_WALL) && !near_equal(m_position.x - m_scale, Constants::LEFT_WALL) {
+    set_state(Actor::State::DEAD);
     m_game->increment_score(Player::PLAYER_ONE);
     m_game->add_actor(new Ball(m_game));
-  } else if (m_position.x + m_scale > Constants::RIGHT_WALL) {
-    kill();
+  } else if ((m_position.x + m_scale) > Constants::RIGHT_WALL && !near_equal(m_position.x + m_scale, Constants::RIGHT_WALL)) {
+    set_state(Actor::State::DEAD);
     m_game->increment_score(Player::PLAYER_TWO);
     m_game->add_actor(new Ball(m_game));
-  } else if (m_position.y - m_scale < Constants::BOTTOM_WALL) {
+  } else if ((m_position.y - m_scale) < Constants::BOTTOM_WALL && !near_equal(m_position.y - m_scale, Constants::BOTTOM_WALL)) {
     float direction{ m_move_component->direction() };
     m_move_component->set_direction(std::atan2f(std::sinf(direction) * -1, std::cosf(direction)));
     auto position{ m_position };
     position.y = Constants::BOTTOM_WALL + m_scale;
     set_position(position);
-  } else if (m_position.y + m_scale > Constants::TOP_WALL) {
+  } else if ((m_position.y + m_scale) > Constants::TOP_WALL && !near_equal(m_position.y + m_scale, Constants::TOP_WALL)) {
     float direction{ m_move_component->direction() };
     m_move_component->set_direction(std::atan2f(std::sinf(direction) * -1, std::cosf(direction)));
     auto position{ m_position };
@@ -69,10 +78,10 @@ void Ball::handle_collision(Actor* collider)
 {
   std::unique_ptr<LineSegment> trajectory{ m_position - (m_move_component->forward() * m_move_component->frame_speed()), m_position + (m_scale * m_move_component->forward()) };
   float t{ };
-  Plane plane{ };
-  intersect(trajectory, box, t, plane);
-  switch (plane) {
-    case MIN_X:
+  Side side{ };
+  intersect(trajectory, box, t, side);
+  switch (side) {
+    case Side::MIN_X:
       if (m_move_component->forward().x > 0) {
         glm::vec2 collision_point{ trajectory->point_on_segment(t) - (forward * m_scale) };
         m_move_component->set_direction(std::atan2f(std::sinf(direction), std::cosf(direction) * -1));
@@ -82,7 +91,7 @@ void Ball::handle_collision(Actor* collider)
         position.x = collider->box_component()->world_shape()->min().x - m_scale;
         set_position(position);
       }
-    case MAX_X:
+    case Side::MAX_X:
       if (m_move_component->forward().x < 0) {
         glm::vec2 collision_point{ trajectory->point_on_segment(t) - (forward * m_scale) };
         m_move_component->set_direction(std::atan2f(std::sinf(direction), std::cosf(direction) * -1));
@@ -92,7 +101,7 @@ void Ball::handle_collision(Actor* collider)
         position.x = collider->box_component()->world_shape()->max().x + m_scale;
         set_position(position);
       }
-    case MIN_Y:
+    case Side::MIN_Y:
       if (m_move_component->forward().y > 0) {
         glm::vec2 collision_point{ trajectory->point_on_segment(t) - (forward * m_scale) };
         m_move_component->set_direction(std::atan2f(std::sinf(direction) * -1, std::cosf(direction)));
@@ -102,7 +111,7 @@ void Ball::handle_collision(Actor* collider)
         position.y = collider->box_component()->world_shape()->min().y - m_scale;
         set_position(position);
       }
-    case MAX_Y:
+    case Side::MAX_Y:
       if (m_move_component->forward().y < 0) {
         glm::vec2 collision_point{ trajectory->point_on_segment(t) - (forward * m_scale) };
         m_move_component->set_direction(std::atan2f(std::sinf(direction) * -1, std::cosf(direction)));

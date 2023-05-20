@@ -2,7 +2,7 @@
 #define SHADER_202303171912_H
 
 #include <GL/glew.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/mat4x4.hpp>
 #include <string>
 
 class Shader final
@@ -11,7 +11,7 @@ public:
   Shader(const char* vertex_shader, const char* fragment_shader);
   ~Shader();
   void set_active();
-  void set_uniform(const char* uniform_name, glm::mat4 matrix);
+  void set_uniform(const char* uniform_name, glm::mat4& matrix);
 private:
   std::string read_shader_source(const char* file_path);
   bool compile_shader(GLuint shader);

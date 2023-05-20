@@ -3,17 +3,19 @@
 
 #include "actors/Actor.h"
 #include "Game.h"
+#include "Player.h"
+#include "rendering/VertexArray.h"
+#include <cstdint>
 
 class Paddle final : public Actor
 {
 public:
   Paddle(Game* owner, float x, float y, Player player);
   ~Paddle();
-  VertexArray* vertex_array() const { return m_vertex_array; }
+  VertexArray* vertex_array() override const { return m_vertex_array; }
   void process_input(const uint8_t* key_state) override;
   void component_update(float delta_time) override;
   void actor_update() override;
-  void accept(ActorVisitor* visitor) override;
 private:
   std::unique_ptr<MoveComponent> m_move_component{ };
   static int m_instances{ 0 };

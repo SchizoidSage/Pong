@@ -1,4 +1,9 @@
 #include "actors/Actor.h"
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 
 void Actor::update(float delta_time)
 {
@@ -45,15 +50,5 @@ void Actor::update_mv_matrix()
       glm::rotate(glm::mat4(1.0f), m_rotation, glm::vec3(0.0f, 0.0f, 1.0f)) *
       glm::scale(glm::mat4(1.0f), glm::vec3(m_scale));
     m_box_component->on_update_mv_matrix();
-  }
-}
-
-void Actor::add_update_component(UpdateComponent* component)
-{
-  for (auto iter{ m_update_components.begin() }; iter != m_update_components.end(); ++iter) {
-    if (component.update_order() < iter->update_order()) {
-      m_update_components.insert(iter, component);
-      break;
-    }
   }
 }

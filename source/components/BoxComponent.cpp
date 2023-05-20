@@ -1,3 +1,8 @@
+#include "components/Component.h"
+#include "components/BoxComponent.h"
+#include "actors/Actor.h"
+#include "collision/shapes/AABB.h"
+
 BoxComponent::BoxComponent(Actor* owner, AABB& object_shape)
 	: Component{ owner },
 		m_object_shape{ object_shape }

@@ -2,18 +2,19 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+#include <memory>
 
 int main()
 {
-	Game game;
+	std::unique_ptr<Game> game;
 	try {
-		game{ Game() };
+		game{ std::make_unique<Game>() };
 	} catch (const std::runtime_error& err) {
 		std::cout << err.what() << '\n';
 		return EXIT_FAILURE;
 	}
 
-	game.run_loop();
+	game->run_loop();
 	
 	return EXIT_SUCCESS;
 }

@@ -1,9 +1,13 @@
-void add_box(BoxComponent* box)
+#include "collision/CollisionEngine.h"
+#include "components/BoxComponent.h"
+#include <algorithm>
+
+void CollisionEngine::add_box(BoxComponent* box)
 {
   m_box_components.emplace_back(box);
 }
 
-void remove_box(BoxComponent* box)
+void CollisionEngine::remove_box(BoxComponent* box)
 {
 	auto iter{ std::find(m_box_components.begin(), m_box_components.end(), box) };
 	if (iter != m_box_components.end()) {

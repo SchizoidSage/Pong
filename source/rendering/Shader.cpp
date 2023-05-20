@@ -1,6 +1,6 @@
 #include "rendering/Shader.h"
 #include <GL/glew.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <stdexcept>
 #include <string>
@@ -50,7 +50,7 @@ void Shader::set_active()
   glUseProgram(m_shader_program);
 }
 
-void Shader::set_uniform(const char* uniform_name, glm::mat4 matrix)
+void Shader::set_uniform(const char* uniform_name, glm::mat4& matrix)
 {
   glUniformMatrix4fv(glGetUniformLocation(m_shader_program, uniform_name), 1, GL_FALSE, glm::value_ptr(matrix));
 }

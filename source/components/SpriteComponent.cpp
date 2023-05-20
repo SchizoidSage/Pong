@@ -1,4 +1,5 @@
 #include "components/SpriteComponent.h"
+#include <GL/glew.h>
 
 SpriteComponent::draw()
 {

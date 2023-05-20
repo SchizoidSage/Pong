@@ -1,4 +1,15 @@
 #include "actors/Paddle.h"
+#include "actors/Actor.h"
+#include "Game.h"
+#include "Player.h"
+#include "rendering/VertexArray.h"
+#include "components/SpriteComponent.h"
+#include "components/InputComponent.h"
+#include "components/MoveComponent.h"
+#include "Constants.h"
+#include <SDL.h>
+#include <array>
+#include <cstdint>
 
 Paddle::Paddle(Game* owner, float x, float y, Player player)
   : Actor{ owner },
@@ -26,7 +37,6 @@ Paddle::Paddle(Game* owner, float x, float y, Player player)
   set_sprite_component(new SpriteComponent(this));
   set_input_component(new InputComponent(this));
   add_update_component(new MoveComponent(this));
-  add_update_component(new ScoreComponent(this));
 }
 
 Paddle::~Paddle()
@@ -64,11 +74,6 @@ void process_input(const uint8_t* key_state)
       }
       break;
   }
-}
-
-void Paddle::accept(ActorVisitor* visitor)
-{
-  visitor->visit_paddle(this);
 }
 
 void Paddle::component_update(float delta_time)

@@ -1,6 +1,9 @@
 #ifndef UPDATE_COMPONENT_202304021721_H
 #define UPDATE_COMPONENT_202304021721_H
 
+#include "components/Component.h"
+#include "actors/Actor.h"
+
 class UpdateComponent : public Component
 {
 public:
@@ -10,7 +13,6 @@ public:
   { }
 
   virtual void update(float delta_time) = 0;
-  virtual void accept(UpdateComponentVisitor* visitor) = 0;
 private:
   int m_update_order{ };
 };

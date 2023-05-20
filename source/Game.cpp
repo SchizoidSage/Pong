@@ -1,8 +1,10 @@
 #include "Game.h"
+#include "actors/Actor.h"
 #include "actors/Ball.h"
 #include "actors/Paddle.h"
 #include "components/SpriteComponent.h"
 #include "Constants.h"
+#include "Player.h"
 #include <SDL.h>
 #include <GL/glew.h>
 #include <utility>
@@ -32,8 +34,7 @@ void Game::run_loop()
 void Game::process_input()
 {
 	while (m_io_manager->poll_event()) {
-		switch (m_io_manager->event().type) 
-		{
+		switch (m_io_manager->event().type) {
 			case SDL_QUIT:
 				m_is_running = false;
 				break;
@@ -95,5 +96,12 @@ void Game::add_actor(Actor* actor)
 
 void Game::increment_score(Player player)
 {
-
+	switch (player) {
+		case Player::PLAYER_ONE:
+			score_player_one++;
+			break;
+		case Player::PLAYER_TWO:
+			score_player_two++;
+			break;
+	}
 }

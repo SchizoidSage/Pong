@@ -3,7 +3,6 @@
 
 #include "actors/Actor.h"
 #include "components/Component.h"
-#include "Shader.h"
 
 class SpriteComponent final : public Component
 {

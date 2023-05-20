@@ -2,7 +2,6 @@
 #define COMPONENT_202303171710_H
 
 #include "actors/Actor.h"
-#include <cstdint>
 
 class Component
 {

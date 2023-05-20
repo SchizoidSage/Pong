@@ -1,4 +1,4 @@
-enum class Plane 
+enum class Side 
 {
   MIN_X,
   MAX_X,

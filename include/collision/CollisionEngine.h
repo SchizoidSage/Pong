@@ -1,7 +1,10 @@
 #ifndef COLLISION_ENGINE_202304131738_H
 #define COLLISION_ENGINE_202304131738_H
 
-class CollisionEngine
+#include "components/BoxComponent.h"
+#include <vector>
+
+class CollisionEngine final
 {
 public:
   CollisionEngine(){ }
