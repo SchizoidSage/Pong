@@ -50,7 +50,7 @@ void Shader::set_active()
   glUseProgram(m_shader_program);
 }
 
-void Shader::set_uniform(const char* uniform_name, glm::mat4& matrix)
+void Shader::set_uniform(const char* uniform_name, const glm::mat4& matrix)
 {
   glUniformMatrix4fv(glGetUniformLocation(m_shader_program, uniform_name), 1, GL_FALSE, glm::value_ptr(matrix));
 }

@@ -15,7 +15,7 @@ bool intersect(const AABB* a, const AABB* b)
 		a->max().y < b->min().y ||
 		b->max().x < a->min().x ||
 		b->max().y < a->min().y
-  }
+  };
 	// If none of these are true, they must intersect
 	return !no_intersection;
 }
@@ -41,7 +41,7 @@ bool intersect(const LineSegment* line_segment, const AABB* box, float& out_t, S
 	// Test if the box contains any of these points of intersection
 	glm::vec2 point{ };
 	for (auto& t : t_values) {
-		point = line_segment.point_on_segment(t.first);
+		point = line_segment->point_on_segment(t.first);
 		if (box->contains(point)) {
 			out_t = t.first;
 			out_norm = t.second;
@@ -69,14 +69,4 @@ bool test_side_plane(float start, float end, float negd, Side norm, std::vector<
 			return false;
 		}
 	}
-}
-
-bool near_equal(float a, float b, float epsilon)
-{
-  return std::fabs(a, b) <= epsilon;
-}
-
-bool near_zero(float a, float epsilon)
-{
-  return std::fabs(a) <= epsilon;
 }

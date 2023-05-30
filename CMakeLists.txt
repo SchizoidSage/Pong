@@ -29,24 +29,23 @@ else()
   message (FATAL_ERROR "Cannot find GLEW")
 endif()
 
-add_executable(pong 
-  Main.cpp 
-  Game.cpp
-)
+add_executable(pong "")
 
-target_compile_options(paddleball
+target_compile_options(pong
   PRIVATE 
     -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror
 )
 
-target_include_directories(paddleball
-  PRIVATE
-    ${PROJECT_SOURCE_DIR}/include
-)
-
-target_link_libraries(paddleball
+target_link_libraries(pong
   PRIVATE 
     SDL2::SDL2
     GLEW::glew
     OpenGL::GL
 )
+
+target_include_directories(pong
+  PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+)
+
+add_subdirectory(source)
