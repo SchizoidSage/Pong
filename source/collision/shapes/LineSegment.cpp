@@ -1,4 +1,4 @@
-#include "collision/shapes/LineSegment.h"
+#include "collision/shapes/LineSegment.hpp"
 #include <glm/vec2.hpp>
 
 glm::vec2 LineSegment::point_on_segment(float percentage) const

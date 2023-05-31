@@ -1,8 +1,7 @@
 #ifndef SPRITE_202305261956_HPP
 #define SPRITE_202305261956_HPP
 
-#include <glm/vec2.hpp>
-#include <glm/mat4x4.hpp>
+#include "utility/EntityType.hpp"
 
 class Sprite final
 {

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "core/Game.hpp"
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>

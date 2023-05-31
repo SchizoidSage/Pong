@@ -1,28 +1,37 @@
 #include "systems/CollisionSystem.hpp"
+#include "collision/utility/Intersect.hpp"
+#include "collision/utility/Side.hpp"
+#include "collision/shapes/LineSegment.hpp"
+#include "components/Ball.hpp"
+#include "components/Position.hpp"
+#include "components/Sprite.hpp"
+#include "components/Box.hpp"
+#include <entt/entt.hpp>
 
-void CollisionSystem::update(float delta_time, CollisionHolder& holder)
+void CollisionSystem::update(float delta_time, entt::registry& registry) const
 {
-  auto ball_view{ registry.view<Ball, Position, Sprite, Box>() };
-  auto paddle_view{ registry.view<Position, Sprite, Box>(entt::exclude<Ball>) };
+  const auto ball_view{ registry.view<Ball, Position, const Sprite, Box>() };
+  const auto paddle_view{ registry.view<const Box>(entt::exclude<Ball>) };
 
-  paddle_view.each([&](auto& paddle_pos, auto& paddle_sprite, auto& paddle_box){
-    ball_view.each([&](auto& ball, auto& ball_pos, auto& ball_sprite, auto& ball_box) {
+  paddle_view.each([&](const auto& paddle_box){
+    ball_view.each([&](auto& ball, auto& ball_pos, const auto& ball_sprite, auto& ball_box) {
       if (intersect(paddle_box.world_box(), ball_box.world_box())) {
         const LineSegment line{ ball_pos.position() + (-ball.direction() * (ball.speed() * delta_time)), ball_pos.position() };
         float t{ };
         Side side{ };
-        intersect(line, paddle_box, t, side);
+        intersect(line, paddle_box.world_box(), t, side);
         switch (side) {
           case Side::MIN_X:
           case Side::MAX_X:
-            ball.set_direction(std::atan2(ball.direction().y, -ball.direction().x));
+            ball.set_direction({ -ball.direction().x, ball.direction().y });
             break;
           case Side::MIN_Y:
           case Side::MAX_Y:
-            ball.set_direction(std::atan2(-ball.direction().y, ball.direction().x));
+            ball.set_direction({ ball.direction().x, -ball.direction().y }); 
             break;
         }
-        ball_pos.set_position(line.point_on_segment(t) + (ball.direction() * ball.speed() * delta_time * (1 - t)));
+        ball_pos.set_position(line.point_on_segment(t) + (ball.direction() * (ball.speed() * delta_time * (1 - t))));
+        ball_box.set_world_box(ball_pos.position(), ball_sprite.scale());
       }
     });
   });

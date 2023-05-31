@@ -1,4 +1,4 @@
-#include "collision/shapes/AABB.h"
+#include "collision/shapes/AABB.hpp"
 #include <glm/vec2.hpp>
 
 bool AABB::contains(const glm::vec2& point) const

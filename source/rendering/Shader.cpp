@@ -1,4 +1,4 @@
-#include "rendering/Shader.h"
+#include "rendering/Shader.hpp"
 #include <GL/glew.h>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <fstream>
+#include <iostream>
 #include <cstdlib>
 
 Shader::Shader(const char* vertex_shader, const char* fragment_shader)
@@ -45,17 +46,17 @@ Shader::~Shader()
   glDeleteShader(m_fragment_shader);
 }
 
-void Shader::set_active()
+void Shader::set_active() const
 {
   glUseProgram(m_shader_program);
 }
 
-void Shader::set_uniform(const char* uniform_name, const glm::mat4& matrix)
+void Shader::set_uniform(const char* uniform_name, const glm::mat4& matrix) const
 {
   glUniformMatrix4fv(glGetUniformLocation(m_shader_program, uniform_name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-std::string Shader::read_shader_source(const char* file_path)
+std::string Shader::read_shader_source(const char* file_path) const
 {
   std::string content{ };
 	auto file_stream{ std::make_unique<std::ifstream>(file_path, std::ios::in) };
@@ -69,7 +70,7 @@ std::string Shader::read_shader_source(const char* file_path)
 	return content;
 }
 
-bool Shader::compile_shader(GLuint shader)
+bool Shader::compile_shader(GLuint shader) const
 {
 	glCompileShader(shader);
 	check_openGL_error();
@@ -82,7 +83,7 @@ bool Shader::compile_shader(GLuint shader)
   return true;
 }
 
-bool Shader::link_program(GLuint program)
+bool Shader::link_program(GLuint program) const
 {
 	glLinkProgram(program);
 	check_openGL_error();
@@ -95,7 +96,7 @@ bool Shader::link_program(GLuint program)
   return true;
 }
 
-void Shader::check_openGL_error()
+void Shader::check_openGL_error() const
 {
 	GLuint error{ glGetError() };
 	while (error != GL_NO_ERROR) {
@@ -104,7 +105,7 @@ void Shader::check_openGL_error()
 	}
 }
 
-void Shader::print_shader_log(GLuint shader)
+void Shader::print_shader_log(GLuint shader) const
 {
 	int len{ 0 };
 	int char_written{ 0 };
@@ -112,13 +113,13 @@ void Shader::print_shader_log(GLuint shader)
 	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 	if (len > 0) {
 		log = (char*)std::malloc(static_cast<size_t>(len));
-		glGetShaderInfoLog(shader, len, &char_written, &log);
+		glGetShaderInfoLog(shader, len, &char_written, log);
 		std::cout << "Shader info log: " << log << '\n';
 		std::free(log);
 	}
 }
 
-void Shader::print_program_log(GLuint program)
+void Shader::print_program_log(GLuint program) const
 {
 	int len{ 0 };
 	int char_written{ 0 };

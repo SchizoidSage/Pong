@@ -15,9 +15,12 @@ public:
 
   glm::vec2 min() const { return m_min; }
   glm::vec2 max() const { return m_max; }
+
+  void set_min(const glm::vec2& min) { m_min = min; }
+  void set_max(const glm::vec2& max) { m_max = max; }
 private:
-	const glm::vec2 m_min{ };
-	const glm::vec2 m_max{ };
+	glm::vec2 m_min{ };
+	glm::vec2 m_max{ };
 };
 
 #endif

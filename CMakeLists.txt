@@ -29,6 +29,16 @@ else()
   message (FATAL_ERROR "Cannot find GLEW")
 endif()
 
+find_package(EnTT 3.12.0 REQUIRED)
+
+if (EnTT_FOUND)
+  message ("EnTT found")
+else()
+  message (FATAL_ERROR "Cannot find EnTT")
+endif()
+
+find_package(effolkronium_random REQUIRED)
+
 add_executable(pong "")
 
 target_compile_options(pong
@@ -41,6 +51,8 @@ target_link_libraries(pong
     SDL2::SDL2
     GLEW::glew
     OpenGL::GL
+    EnTT::EnTT
+    effolkronium_random
 )
 
 target_include_directories(pong

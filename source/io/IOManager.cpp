@@ -1,5 +1,5 @@
-#include "Constants.h"
-#include "IOManager.h"
+#include "utility/Constants.hpp"
+#include "io/IOManager.hpp"
 #include <GL/glew.h>
 #include <SDL.h>
 #include <stdexcept>
@@ -9,7 +9,7 @@
 IOManager::IOManager()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		throw std::runtime_error(std::string{ "Unable to initialize SDL! SDL Error: " } + SDL_GetError() + '\n');
+		throw std::runtime_error{ std::string{ "Unable to initialize SDL! SDL Error: " } + SDL_GetError() + '\n' };
 	}
 	
   SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
@@ -26,22 +26,22 @@ IOManager::IOManager()
 	);
 
 	if (!m_window) {
-		throw std::runtime_error(std::string{ "Window could not be created! SDL Error: " } + SDL_GetError() + '\n');
+		throw std::runtime_error{ std::string{ "Window could not be created! SDL Error: " } + SDL_GetError() + '\n' };
 	}
 
   m_context = SDL_GL_CreateContext(m_window);
 
   if (!m_context) {
-		throw std::runtime_error(std::string{ "OpenGL context could not be created! SDL Error: " } + SDL_GetError() + '\n');
+		throw std::runtime_error{ std::string{ "OpenGL context could not be created! SDL Error: " } + SDL_GetError() + '\n' };
   }
 
   if (auto glewError{ glewInit() }; glewError != GLEW_OK) {
 		std::cerr << glewGetErrorString(glewError) + '\n';
-		throw std::runtime_error("GLEW failed to initialize!\n");
+		throw std::runtime_error{ "GLEW failed to initialize!\n" };
   }
 
   if (SDL_GL_SetSwapInterval(1) < 0) {
-		throw std::runtime_error(std::string{ "SDL failed to set VSync! SDL Error: " } + SDL_GetError() + '\n');
+		throw std::runtime_error{ std::string{ "SDL failed to set VSync! SDL Error: " } + SDL_GetError() + '\n' };
   }
 }
 
@@ -73,11 +73,11 @@ void IOManager::update_delta_time()
 
 	// Delta time is the difference in ticks from last frame
 	// (converted to seconds)
-	m_delta_time = (SDL_GetTicks() - m_ticks_count) / 1000.0f;
+	m_delta_time = (SDL_GetTicks() - m_ticks_count) / 1000.f;
 	
 	// Clamp maximum delta time value
-	if (m_delta_time > 0.05f) {
-		m_delta_time = 0.05f;
+	if (m_delta_time > .05f) {
+		m_delta_time = .05f;
 	}
 
 	// Update tick counts (for next frame)

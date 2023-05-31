@@ -3,7 +3,7 @@
 
 class Player final
 {
-public::
+public:
   enum class MoveDirection
   {
     STOPPED,
@@ -11,6 +11,7 @@ public::
     DOWN
   };
 
+  int speed() const { return m_speed; }
   MoveDirection direction() const { return m_direction; }
   void set_direction(MoveDirection direction) { m_direction = direction; }
 private:  

@@ -1,15 +1,13 @@
 #include "components/Ball.hpp"
-#include "Constants.hpp"
-#include <random/random.hpp>
+#include "utility/Constants.hpp"
+#include <effolkronium/random.hpp>
+#include <glm/vec2.hpp>
+#include <cmath>
+using Random = effolkronium::random_static;
 
 Ball::Ball()
 {
   set_random_direction();
-}
-
-void Ball::set_direction(float direction)
-{
-  m_direction = glm::vec2{ std::cos(direction), std::sin(direction) };
 }
 
 void Ball::set_random_direction()
@@ -27,5 +25,5 @@ void Ball::set_random_direction()
     random = Random::get(0.f, 2 * Constants::PI);
   }
 
-  m_direction = set_direction(random);
+  m_direction = glm::vec2{ std::cos(random), std::sin(random) };
 }

@@ -1,4 +1,5 @@
 #include "components/Box.hpp"
+#include <glm/vec2.hpp>
 
 void Box::set_world_box(glm::vec2 position, float scale)
 {

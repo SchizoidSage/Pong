@@ -9,7 +9,7 @@ class VertexArray final
 public:
   VertexArray(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
   ~VertexArray();
-  void set_active();
+  void set_active() const;
 private:
   GLuint m_vertex_buffer[1]{ };
   GLuint m_index_buffer[1]{ };

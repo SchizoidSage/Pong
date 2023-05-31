@@ -1,5 +1,5 @@
-#ifndef SIDE_202305211549_H
-#define SIDE_202305211549_H
+#ifndef SIDE_202305211549_HPP
+#define SIDE_202305211549_HPP
 
 enum class Side 
 {
