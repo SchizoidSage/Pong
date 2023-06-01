@@ -33,7 +33,7 @@ bool intersect(const LineSegment& line_segment, const AABB& box, float& out_t, S
 	test_side_plane(line_segment.start().y, line_segment.end().y, box.max().y, Side::MAX_Y, t_values);
 	
 	// Sort the t values in ascending order
-	std::sort(t_values.begin(), t_values.end(), [](const auto& a, const auto& b) {
+	std::sort(t_values.begin(), t_values.end(), [&](const auto& a, const auto& b) {
 		return a.first < b.first;
 	});
 	// Test if the box contains any of these points of intersection
