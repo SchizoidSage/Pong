@@ -6,17 +6,17 @@
 class LineSegment final
 {
 public:
-  LineSegment(const glm::vec2& start, const glm::vec2& end)
+  LineSegment(const glm::vec2& start, const glm::vec2& end) noexcept
     : m_start{ start },
       m_end{ end }
   { }
 
-  glm::vec2 point_on_segment(float percentage) const;
-  glm::vec2 start() const { return m_start; }
-  glm::vec2 end() const { return m_end; }
+  glm::vec2 point_on_segment(float percentage) const noexcept;
+  glm::vec2 start() const noexcept { return m_start; }
+  glm::vec2 end() const noexcept { return m_end; }
 private:
-  glm::vec2 m_start{ };
-  glm::vec2 m_end{ };
+  const glm::vec2 m_start{ };
+  const glm::vec2 m_end{ };
 };
 
 #endif

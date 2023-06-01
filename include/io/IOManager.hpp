@@ -13,9 +13,9 @@ public:
   void update_delta_time();
   void swap_window() const;
 
-  SDL_Event event() const { return m_event; }
-  const Uint8* keyboard_state() const{ return m_state; }
-  float delta_time() const { return m_delta_time; }
+  SDL_Event event() const noexcept { return m_event; }
+  const Uint8* keyboard_state() const noexcept { return m_state; }
+  float delta_time() const noexcept { return m_delta_time; }
 
   IOManager(const IOManager&) = delete;
   IOManager& operator=(const IOManager&) = delete;

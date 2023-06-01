@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <cmath>
 
-bool intersect(const AABB& a, const AABB& b)
+bool intersect(const AABB& a, const AABB& b) noexcept
 {
   bool no_intersection{ 
     a.max().x < b.min().x ||
@@ -33,14 +33,12 @@ bool intersect(const LineSegment& line_segment, const AABB& box, float& out_t, S
 	test_side_plane(line_segment.start().y, line_segment.end().y, box.max().y, Side::MAX_Y, t_values);
 	
 	// Sort the t values in ascending order
-	std::sort(t_values.begin(), t_values.end(), [](
-		const std::pair<float, Side>& a,
-		const std::pair<float, Side>& b) {
-		  return a.first < b.first;
+	std::sort(t_values.begin(), t_values.end(), [](const auto& a, const auto& b) {
+		return a.first < b.first;
 	});
 	// Test if the box contains any of these points of intersection
 	glm::vec2 point{ };
-	for (auto& t : t_values) {
+	for (const auto& t : t_values) {
 		point = line_segment.point_on_segment(t.first);
 		if (box.contains(point)) {
 			out_t = t.first;
@@ -55,12 +53,12 @@ bool intersect(const LineSegment& line_segment, const AABB& box, float& out_t, S
 
 bool test_side_plane(float start, float end, float negd, Side norm, std::vector<std::pair<float, Side>>& out)
 {
-	float denom{ end - start };
+	const float denom{ end - start };
 	if (near_zero(denom)) {
 		return false;
 	} else {
-		float numer{ -start + negd };
-		float t{ numer / denom };
+		const float numer{ -start + negd };
+		const float t{ numer / denom };
 		// Test that t is within bounds
 		if (t >= 0.0f && t <= 1.0f) {
 			out.emplace_back(t, norm);

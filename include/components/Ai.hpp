@@ -4,7 +4,7 @@
 class Ai final
 {
 public:
-  int speed() const { return m_speed; }
+  int speed() const noexcept { return m_speed; }
 private:
   const int m_speed{ 15 };
 };

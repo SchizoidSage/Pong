@@ -11,11 +11,11 @@
 
 Shader::Shader(const char* vertex_shader, const char* fragment_shader)
 {
-  auto vertex_shader_source{ read_shader_source(vertex_shader) };
-  auto fragment_shader_source{ read_shader_source(fragment_shader) };
+  const auto vertex_shader_source{ read_shader_source(vertex_shader) };
+  const auto fragment_shader_source{ read_shader_source(fragment_shader) };
 
-	auto vertex_shader_source_str{ vertex_shader_source.c_str() };
-	auto fragment_shader_source_str{ fragment_shader_source.c_str() };
+	const auto vertex_shader_source_str{ vertex_shader_source.c_str() };
+	const auto fragment_shader_source_str{ fragment_shader_source.c_str() };
 
   m_vertex_shader = glCreateShader(GL_VERTEX_SHADER);
   m_fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);

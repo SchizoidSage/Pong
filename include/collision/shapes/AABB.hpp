@@ -6,18 +6,18 @@
 class AABB final
 {
 public:
-	AABB(const glm::vec2& min, const glm::vec2& max)
+	AABB(const glm::vec2& min, const glm::vec2& max) noexcept
     : m_min{ min },
       m_max{ max }
   { }
 
-  bool contains(const glm::vec2& point) const;
+  bool contains(const glm::vec2& point) const noexcept;
 
-  glm::vec2 min() const { return m_min; }
-  glm::vec2 max() const { return m_max; }
+  glm::vec2 min() const noexcept { return m_min; }
+  glm::vec2 max() const noexcept { return m_max; }
 
-  void set_min(const glm::vec2& min) { m_min = min; }
-  void set_max(const glm::vec2& max) { m_max = max; }
+  void set_min(const glm::vec2& min) noexcept { m_min = min; }
+  void set_max(const glm::vec2& max) noexcept { m_max = max; }
 private:
 	glm::vec2 m_min{ };
 	glm::vec2 m_max{ };

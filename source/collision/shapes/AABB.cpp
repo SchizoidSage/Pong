@@ -1,7 +1,7 @@
 #include "collision/shapes/AABB.hpp"
 #include <glm/vec2.hpp>
 
-bool AABB::contains(const glm::vec2& point) const
+bool AABB::contains(const glm::vec2& point) const noexcept
 {
 	bool outside { 
     point.x < m_min.x ||

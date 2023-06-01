@@ -23,12 +23,12 @@ Game::Game()
 
 	m_registry->emplace<Sprite>(ai_paddle, EntityType::PADDLE, 10.f);
 	m_registry->emplace<Position>(ai_paddle, Constants::RIGHT_WALL - 15.f, 0.f);
-	m_registry->emplace<Box>(player_paddle, glm::vec2{ -.5f, -1.f }, glm::vec2{ .5f, 1.f });
+	m_registry->emplace<Box>(ai_paddle, glm::vec2{ -.5f, -1.f }, glm::vec2{ .5f, 1.f });
 	m_registry->emplace<Ai>(ai_paddle);
 
 	m_registry->emplace<Sprite>(ball, EntityType::BALL, 5.f);
 	m_registry->emplace<Position>(ball, 0.f, 0.f);
-	m_registry->emplace<Box>(player_paddle, glm::vec2{ -1.f, -1.f }, glm::vec2{ 1.f, 1.f });
+	m_registry->emplace<Box>(ball, glm::vec2{ -1.f, -1.f }, glm::vec2{ 1.f, 1.f });
 	m_registry->emplace<Ball>(ball);
 
 	m_dispatcher->sink<KeyDown>().connect<&MoveSystem::on_key_down>(m_move_system);

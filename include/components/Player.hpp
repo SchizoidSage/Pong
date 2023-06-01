@@ -11,9 +11,9 @@ public:
     DOWN
   };
 
-  int speed() const { return m_speed; }
-  MoveDirection direction() const { return m_direction; }
-  void set_direction(MoveDirection direction) { m_direction = direction; }
+  int speed() const noexcept { return m_speed; }
+  MoveDirection direction() const noexcept { return m_direction; }
+  void set_direction(MoveDirection direction) noexcept { m_direction = direction; }
 private:  
   MoveDirection m_direction{ MoveDirection::STOPPED };
   const int m_speed{ 15 };

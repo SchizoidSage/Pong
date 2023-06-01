@@ -12,9 +12,9 @@ public:
       m_rotation{ rotation }
   { }
 
-  float scale() const { return m_scale; }
-  float rotation() const { return m_rotation; }
-  EntityType entity_type() const { return m_entity_type; }
+  float scale() const noexcept { return m_scale; }
+  float rotation() const noexcept { return m_rotation; }
+  EntityType entity_type() const noexcept { return m_entity_type; }
 private:
   EntityType m_entity_type{ };
   float m_scale{ 1.f };
