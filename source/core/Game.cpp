@@ -16,17 +16,17 @@ Game::Game()
 	const auto ai_paddle{ m_registry->create() };
 	const auto ball{ m_registry->create() };
 
-	m_registry->emplace<Sprite>(player_paddle, EntityType::PADDLE, 10.f);
-	m_registry->emplace<Position>(player_paddle, Constants::LEFT_WALL + 15.f, 0.f);
+	m_registry->emplace<Sprite>(player_paddle, EntityType::PADDLE, 25.f);
+	m_registry->emplace<Position>(player_paddle, Constants::LEFT_WALL + 30.f, 0.f);
 	m_registry->emplace<Box>(player_paddle, glm::vec2{ -.5f, -1.f }, glm::vec2{ .5f, 1.f });
 	m_registry->emplace<Player>(player_paddle);
 
-	m_registry->emplace<Sprite>(ai_paddle, EntityType::PADDLE, 10.f);
-	m_registry->emplace<Position>(ai_paddle, Constants::RIGHT_WALL - 15.f, 0.f);
+	m_registry->emplace<Sprite>(ai_paddle, EntityType::PADDLE, 25.f);
+	m_registry->emplace<Position>(ai_paddle, Constants::RIGHT_WALL - 30.f, 0.f);
 	m_registry->emplace<Box>(ai_paddle, glm::vec2{ -.5f, -1.f }, glm::vec2{ .5f, 1.f });
 	m_registry->emplace<Ai>(ai_paddle);
 
-	m_registry->emplace<Sprite>(ball, EntityType::BALL, 5.f);
+	m_registry->emplace<Sprite>(ball, EntityType::BALL, 10.f);
 	m_registry->emplace<Position>(ball, 0.f, 0.f);
 	m_registry->emplace<Box>(ball, glm::vec2{ -1.f, -1.f }, glm::vec2{ 1.f, 1.f });
 	m_registry->emplace<Ball>(ball);

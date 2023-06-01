@@ -16,7 +16,7 @@ public:
   void set_direction(MoveDirection direction) noexcept { m_direction = direction; }
 private:  
   MoveDirection m_direction{ MoveDirection::STOPPED };
-  const int m_speed{ 100 };
+  const int m_speed{ 150 };
 };
 
 #endif

@@ -13,7 +13,7 @@ public:
   void set_random_direction();
 private:
   glm::vec2 m_direction{ };
-  const int m_speed{ 100 };
+  const int m_speed{ 200 };
 };
 
 #endif
