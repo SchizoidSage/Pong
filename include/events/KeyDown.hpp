@@ -3,7 +3,7 @@
 
 struct KeyDown final
 {
-  int key_code{ };
+  int key_code{ -1 };
 };
 
 #endif
