@@ -1,12 +1,7 @@
 #include "systems/MoveSystem.hpp"
 #include "events/KeyDown.hpp"
 #include "events/KeyUp.hpp"
-#include "components/Player.hpp"
-#include "components/Ball.hpp"
-#include "components/Ai.hpp"
-#include "components/Position.hpp"
-#include "components/Sprite.hpp"
-#include "components/Box.hpp"
+#include "components/All.hpp"
 #include "utility/Constants.hpp"
 #include <entt/entt.hpp>
 #include <SDL.h>
@@ -14,11 +9,11 @@
 void MoveSystem::on_key_down(const KeyDown& key_down) noexcept
 {
   switch (key_down.key_code) {
-    case SDLK_w:
+    case SDLK_s:
       m_player_movement = Player::MoveDirection::UP;
       break;
 
-    case SDLK_s:
+    case SDLK_w:
       m_player_movement = Player::MoveDirection::DOWN;
       break;
   }

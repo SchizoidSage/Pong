@@ -55,10 +55,10 @@ void Game::process_input()
 				m_is_running = false;
 				break;
 			case SDL_KEYDOWN:
-				m_dispatcher->trigger<KeyDown>(static_cast<unsigned int>(event.key.keysym.sym));
+				m_dispatcher->trigger(KeyDown{ event.key.keysym.sym });
 				break;
 			case SDL_KEYUP:
-				m_dispatcher->trigger<KeyUp>(static_cast<unsigned int>(event.key.keysym.sym));
+				m_dispatcher->trigger(KeyUp{ event.key.keysym.sym });
 				break;
 		}
 	}
