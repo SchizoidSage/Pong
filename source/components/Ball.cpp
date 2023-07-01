@@ -21,7 +21,6 @@
 #include <effolkronium/random.hpp>
 #include <glm/vec2.hpp>
 #include <cmath>
-using Random = effolkronium::random_static;
 
 Ball::Ball()
 {
@@ -30,6 +29,7 @@ Ball::Ball()
 
 void Ball::set_random_direction()
 {
+  using Random = effolkronium::random_static;
   float random{ };
   constexpr float margin{ 0.4f };
   switch (Random::get(1, 4)) {
@@ -48,9 +48,4 @@ void Ball::set_random_direction()
   }
 
   m_direction = glm::vec2{ std::cos(random), std::sin(random) };
-}
-
-bool Ball::is_immune() const noexcept
-{
-  return m_immunity_ticks > 0;
 }
