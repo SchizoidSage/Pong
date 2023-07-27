@@ -16,23 +16,24 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "core/Game.hpp"
-#include <cstdlib>
-#include <iostream>
+#include "io/Audio.hpp"
+#include <AL/alure.h>
 #include <stdexcept>
-#include <memory>
+#include <string>
 
-int main()
+Audio::Audio()
 {
-	std::unique_ptr<Game> game;
-	try {
-		game = std::make_unique<Game>();
-	} catch (const std::runtime_error& err) {
-		std::cerr << err.what() << '\n';
-		return EXIT_FAILURE;
-	}
+  if(!alureInitDevice(nullptr, nullptr)) {
+    throw std::runtime_error{ std::string{ "Failed to open OpenAL device: " } + alureGetErrorString() + '\n' };
+  }
+}
 
-	game->run_loop();
-	
-	return EXIT_SUCCESS;
+Audio::~Audio()
+{
+  alureShutdownDevice();
+}
+
+void Audio::update() const
+{
+  alureUpdate();
 }

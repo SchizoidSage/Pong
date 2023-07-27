@@ -89,6 +89,8 @@ void Game::update_game() const
 	
 	m_move_system->update(delta_time, *(m_registry.get()));
 	m_collision_system->update(delta_time, *(m_registry.get()));
+
+	m_audio->update();
 }
 
 void Game::generate_output() const

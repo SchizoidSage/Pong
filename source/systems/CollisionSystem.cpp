@@ -25,6 +25,39 @@
 #include "components/Sprite.hpp"
 #include "components/Box.hpp"
 #include <entt/entt.hpp>
+#include <AL/al.h>
+#include <AL/alure.h>
+#include <stdexcept>
+#include <string>
+
+bool CollisionSystem::m_sound_playing{ false };
+
+CollisionSystem::CollisionSystem()
+{
+  alGenSources(1, &m_source);
+  if(alGetError() != AL_NO_ERROR) {
+    throw std::runtime_error{ "Failed to create OpenAL source!\n" };
+  }
+
+  m_buffer = alureCreateBufferFromFile("../audio/beep.wav");
+  if(!m_buffer) {
+    alDeleteSources(1, &m_source);
+    throw std::runtime_error{ std::string{ "Failed to create OpenAL buffer: " } + alureGetErrorString() + '\n' };
+  }
+
+  alSourcei(m_source, AL_BUFFER, static_cast<ALint>(m_buffer));
+}
+
+CollisionSystem::~CollisionSystem()
+{
+  alDeleteSources(1, &m_source);
+  alDeleteBuffers(1, &m_buffer);
+}
+
+void CollisionSystem::al_callback([[maybe_unused]] void* unused, [[maybe_unused]] ALuint unused2)
+{
+  m_sound_playing = false;
+}
 
 void CollisionSystem::update(float delta_time, entt::registry& registry) const
 {
@@ -50,6 +83,12 @@ void CollisionSystem::update(float delta_time, entt::registry& registry) const
         }
         ball_pos.set_position(line.point_on_segment(t) + (ball.direction() * (ball.speed() * delta_time * (1 - t))));
         ball_box.set_world_box(ball_pos.position(), ball_sprite.scale());
+        
+        if (m_sound_playing) {
+          alureStopSource(m_source, true);
+        }
+        alurePlaySource(m_source, CollisionSystem::al_callback, NULL);
+        m_sound_playing = true;
       }
     });
   });

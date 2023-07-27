@@ -29,6 +29,14 @@ else()
   message (FATAL_ERROR "Cannot find GLEW")
 endif()
 
+find_package(OpenAL 1.19.1 REQUIRED)
+
+if (OPENAL_FOUND)
+  message ("OpenAL found")
+else()
+  message (FATAL_ERROR "Cannot find OpenAL")
+endif()
+
 find_package(EnTT 3.12.0 REQUIRED)
 
 if (EnTT_FOUND)
@@ -51,6 +59,8 @@ target_link_libraries(pong
     SDL2::SDL2
     GLEW::glew
     OpenGL::GL
+    openal
+    alure
     EnTT::EnTT
     effolkronium_random
 )

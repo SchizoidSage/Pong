@@ -16,23 +16,15 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "core/Game.hpp"
-#include <cstdlib>
-#include <iostream>
-#include <stdexcept>
-#include <memory>
+#ifndef AUDIO_202307111945_H
+#define AUDIO_202307111945_H
 
-int main()
+class Audio final
 {
-	std::unique_ptr<Game> game;
-	try {
-		game = std::make_unique<Game>();
-	} catch (const std::runtime_error& err) {
-		std::cerr << err.what() << '\n';
-		return EXIT_FAILURE;
-	}
+public:
+  Audio();
+  ~Audio();
+  void update() const;
+};
 
-	game->run_loop();
-	
-	return EXIT_SUCCESS;
-}
+#endif

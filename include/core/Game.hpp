@@ -20,6 +20,7 @@
 #define GAME_202303021940_HPP
 
 #include "io/IOManager.hpp"
+#include "io/Audio.hpp"
 #include "systems/MoveSystem.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/RenderSystem.hpp"
@@ -40,6 +41,7 @@ private:
 	bool m_is_running{ true }; 
 
 	const std::unique_ptr<IOManager> m_io_manager{ std::make_unique<IOManager>() };
+	const std::unique_ptr<const Audio> m_audio{ std::make_unique<const Audio>() };
 
 	const std::unique_ptr<entt::registry> m_registry{ std::make_unique<entt::registry>() };
 	const std::unique_ptr<entt::dispatcher> m_dispatcher{ std::make_unique<entt::dispatcher>() };

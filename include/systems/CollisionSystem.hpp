@@ -19,12 +19,23 @@
 #ifndef COLLISION_SYSTEM_202305291300_HPP
 #define COLLISION_SYSTEM_202305291300_HPP
 
+#include "io/Audio.hpp"
 #include <entt/entt.hpp>
+#include <AL/al.h>
+#include <memory>
 
 class CollisionSystem
 {
 public:
+  CollisionSystem();
+  ~CollisionSystem();
   void update(float delta_time, entt::registry& registry) const;
+private:
+  static void al_callback([[maybe_unused]] void* unused, [[maybe_unused]] ALuint unused2);
+
+  ALuint m_source{ };
+  ALuint m_buffer{ };
+  static bool m_sound_playing;
 };
 
 #endif
