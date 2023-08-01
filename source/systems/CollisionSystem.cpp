@@ -30,7 +30,7 @@
 #include <stdexcept>
 #include <string>
 
-bool CollisionSystem::m_sound_playing{ false };
+//bool CollisionSystem::m_sound_playing{ false };
 
 CollisionSystem::CollisionSystem()
 {
@@ -54,12 +54,13 @@ CollisionSystem::~CollisionSystem()
   alDeleteBuffers(1, &m_buffer);
 }
 
-void CollisionSystem::al_callback([[maybe_unused]] void* unused, [[maybe_unused]] ALuint unused2)
+void CollisionSystem::al_callback(void* data, [[maybe_unused]] ALuint)
 {
-  m_sound_playing = false;
+  auto self{ reinterpret_cast<CollisionSystem*>(data) };
+  self->m_sound_playing = false;
 }
 
-void CollisionSystem::update(float delta_time, entt::registry& registry) const
+void CollisionSystem::update(float delta_time, entt::registry& registry)
 {
   const auto ball_view{ registry.view<Ball, Position, const Sprite, Box>() };
   const auto paddle_view{ registry.view<const Box>(entt::exclude<Ball>) };
@@ -87,7 +88,7 @@ void CollisionSystem::update(float delta_time, entt::registry& registry) const
         if (m_sound_playing) {
           alureStopSource(m_source, true);
         }
-        alurePlaySource(m_source, CollisionSystem::al_callback, NULL);
+        alurePlaySource(m_source, &CollisionSystem::al_callback, this);
         m_sound_playing = true;
       }
     });

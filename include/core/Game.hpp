@@ -46,7 +46,7 @@ private:
 	const std::unique_ptr<entt::registry> m_registry{ std::make_unique<entt::registry>() };
 	const std::unique_ptr<entt::dispatcher> m_dispatcher{ std::make_unique<entt::dispatcher>() };
 
-	const std::unique_ptr<const CollisionSystem> m_collision_system{ std::make_unique<const CollisionSystem>() };
+	const std::unique_ptr<CollisionSystem> m_collision_system{ std::make_unique<CollisionSystem>() };
 	const std::unique_ptr<MoveSystem> m_move_system{ std::make_unique<MoveSystem>() };
 	const std::unique_ptr<const RenderSystem> m_render_system{ std::make_unique<const RenderSystem>() };
 };
