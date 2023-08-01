@@ -29,13 +29,12 @@ class CollisionSystem
 public:
   CollisionSystem();
   ~CollisionSystem();
-  void update(float delta_time, entt::registry& registry);
+  void update(float delta_time, entt::registry& registry) const;
 private:
-  static void al_callback(void* data, [[maybe_unused]] ALuint);
+  static void al_callback([[maybe_unused]] void* data, [[maybe_unused]] ALuint) { }
 
   ALuint m_source{ };
   ALuint m_buffer{ };
-  bool m_sound_playing{ false };
 };
 
 #endif
