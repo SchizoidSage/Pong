@@ -30,6 +30,7 @@ public:
   void on_key_down(const KeyDown& key_down) noexcept;
   void on_key_up(const KeyUp& key_up) noexcept;
   void update(float delta_time, entt::registry& registry) const;
+  void set_init_world_box(entt::registry& registry) const;
 private:
   void player_update(float delta_time, entt::registry& registry)const ;
   void ball_update(float delta_time, entt::registry& registry) const;

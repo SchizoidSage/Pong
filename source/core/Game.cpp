@@ -49,6 +49,8 @@ Game::Game()
 	m_registry->emplace<Box>(ball, glm::vec2{ -1.f, -1.f }, glm::vec2{ 1.f, 1.f });
 	m_registry->emplace<Ball>(ball);
 
+	m_move_system->set_init_world_box(*(m_registry.get()));
+
 	m_dispatcher->sink<KeyDown>().connect<&MoveSystem::on_key_down>(m_move_system);
 	m_dispatcher->sink<KeyUp>().connect<&MoveSystem::on_key_up>(m_move_system);
 

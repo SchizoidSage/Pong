@@ -43,7 +43,7 @@ CollisionSystem::CollisionSystem()
     throw std::runtime_error{ std::string{ "Failed to create OpenAL buffer: " } + alureGetErrorString() + '\n' };
   }
 
-  alSourcei(m_source, AL_BUFFER, static_cast<ALint>(m_buffer));
+  alSourcei(m_source, AL_BUFFER, static_cast<int>(m_buffer));
 }
 
 CollisionSystem::~CollisionSystem()

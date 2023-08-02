@@ -44,6 +44,14 @@ void MoveSystem::on_key_up(const KeyUp& key_up) noexcept
   }
 }
 
+void MoveSystem::set_init_world_box(entt::registry& registry) const
+{
+  const auto paddle_view{ registry.view<Box, const Position, const Sprite>() };
+  paddle_view.each([&](auto& box, const auto& pos, const auto& sprite) {
+    box.set_world_box(pos.position(), sprite.scale());
+  });
+}
+
 void MoveSystem::update(float delta_time, entt::registry& registry) const
 {
   player_update(delta_time, registry);

@@ -21,7 +21,6 @@
 
 #include "io/Audio.hpp"
 #include <entt/entt.hpp>
-#include <AL/al.h>
 #include <memory>
 
 class CollisionSystem
@@ -31,10 +30,10 @@ public:
   ~CollisionSystem();
   void update(float delta_time, entt::registry& registry) const;
 private:
-  static void al_callback([[maybe_unused]] void* data, [[maybe_unused]] ALuint) { }
+  static void al_callback([[maybe_unused]] void*, [[maybe_unused]] unsigned int) { }
 
-  ALuint m_source{ };
-  ALuint m_buffer{ };
+  unsigned int m_source{ };
+  unsigned int m_buffer{ };
 };
 
 #endif
