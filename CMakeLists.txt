@@ -7,41 +7,32 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 find_package(SDL2 2.0.16 REQUIRED)
 
-if(SDL2_FOUND)
-  message ("SDL2 found")
-else()
+if(NOT SDL2_FOUND)
   message (FATAL_ERROR "Cannot find SDL2")
 endif()
 
 find_package(OpenGL 1.3.4 REQUIRED)
 
-if(OPENGL_FOUND)
-  message ("OpenGL found")
-else()
+if(NOT OPENGL_FOUND)
   message (FATAL_ERROR "Cannot find OpenGL")
 endif()
 
 find_package(GLEW 2.1.0 REQUIRED)
+find_package(glm REQUIRED)
 
-if(GLEW_FOUND)
-  message ("GLEW found")
-else()
+if(NOT GLEW_FOUND)
   message (FATAL_ERROR "Cannot find GLEW")
 endif()
 
 find_package(OpenAL 1.19.1 REQUIRED)
 
-if (OPENAL_FOUND)
-  message ("OpenAL found")
-else()
+if (NOT OPENAL_FOUND)
   message (FATAL_ERROR "Cannot find OpenAL")
 endif()
 
 find_package(EnTT 3.12.0 REQUIRED)
 
-if (EnTT_FOUND)
-  message ("EnTT found")
-else()
+if (NOT EnTT_FOUND)
   message (FATAL_ERROR "Cannot find EnTT")
 endif()
 
@@ -49,10 +40,32 @@ find_package(effolkronium_random REQUIRED)
 
 add_executable(pong "")
 
-target_compile_options(pong
-  PRIVATE 
-    -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror
-)
+string(TOLOWER "${CMAKE_BUILD_TYPE}" build_type)
+if (build_type STREQUAL "release")
+  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    target_compile_options(pong 
+      PRIVATE
+        /O2
+    )
+  else()
+    target_compile_options(pong
+      PRIVATE 
+        -O2 -DNDEBUG
+    )
+  endif()
+else()
+  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    target_compile_options(pong 
+      PRIVATE
+        /W4 /w44365 /external:W3 /WX
+    )
+  else()
+    target_compile_options(pong
+      PRIVATE 
+        -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror
+    )
+  endif()
+endif()
 
 target_link_libraries(pong
   PRIVATE 

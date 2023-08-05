@@ -30,7 +30,7 @@ public:
     : m_object_box{ std::make_unique<const AABB>(min, max) },
       m_world_box{ std::make_unique<AABB>(min, max) }
   { }
-  AABB world_box() const noexcept { return *(m_world_box.get()); }
+  AABB world_box() const noexcept { return *m_world_box; }
   void set_world_box(const glm::vec2& position, float scale) noexcept;
 private:
   const std::unique_ptr<const AABB> m_object_box{ };

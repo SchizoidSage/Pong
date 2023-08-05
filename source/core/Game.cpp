@@ -49,7 +49,7 @@ Game::Game()
 	m_registry->emplace<Box>(ball, glm::vec2{ -1.f, -1.f }, glm::vec2{ 1.f, 1.f });
 	m_registry->emplace<Ball>(ball);
 
-	m_move_system->set_init_world_box(*(m_registry.get()));
+	m_move_system->set_init_world_box(*m_registry);
 
 	m_dispatcher->sink<KeyDown>().connect<&MoveSystem::on_key_down>(m_move_system);
 	m_dispatcher->sink<KeyUp>().connect<&MoveSystem::on_key_up>(m_move_system);
@@ -89,8 +89,8 @@ void Game::update_game() const
 	m_io_manager->update_delta_time();
 	const auto delta_time{ m_io_manager->delta_time() };
 	
-	m_move_system->update(delta_time, *(m_registry.get()));
-	m_collision_system->update(delta_time, *(m_registry.get()));
+	m_move_system->update(delta_time, *m_registry);
+	m_collision_system->update(delta_time, *m_registry);
 
 	m_audio->update();
 }
@@ -101,7 +101,7 @@ void Game::generate_output() const
 	glClearColor(0.f, 0.f, 1.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	m_render_system->render(*(m_registry.get()));
+	m_render_system->render(*m_registry);
 
 	m_io_manager->swap_window();
 }
