@@ -83,4 +83,26 @@ target_include_directories(pong
     ${PROJECT_SOURCE_DIR}/include
 )
 
+target_compile_definitions(pong
+  PRIVATE
+    CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}/share/pong
+)
+
 add_subdirectory(source)
+
+install(TARGETS pong RUNTIME DESTINATION games
+        PERMISSIONS
+          OWNER_READ OWNER_EXECUTE
+          GROUP_READ GROUP_EXECUTE
+          WORLD_READ WORLD_EXECUTE
+)
+install(DIRECTORY audio glsl DESTINATION share/pong
+        FILE_PERMISSIONS
+          OWNER_READ
+          GROUP_READ
+          WORLD_READ
+        DIRECTORY_PERMISSIONS
+          OWNER_READ OWNER_WRITE OWNER_EXECUTE
+          GROUP_READ GROUP_WRITE GROUP_EXECUTE
+          WORLD_READ WORLD_EXECUTE
+)
