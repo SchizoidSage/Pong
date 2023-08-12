@@ -1,70 +1,53 @@
+# Pong: A Pong Game with OpenGL, SDL2 and EnTT 
+# Copyright (C) 2023  SchizoidSage
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 cmake_minimum_required(VERSION 3.18.4)
 project(Pong VERSION 1.0 LANGUAGES CXX)
 
+cmake_policy(SET CMP0005 NEW)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 find_package(SDL2 2.0.16 REQUIRED)
-
-if(NOT SDL2_FOUND)
-  message (FATAL_ERROR "Cannot find SDL2")
-endif()
-
 find_package(OpenGL 1.3.4 REQUIRED)
-
-if(NOT OPENGL_FOUND)
-  message (FATAL_ERROR "Cannot find OpenGL")
-endif()
-
 find_package(GLEW 2.1.0 REQUIRED)
 find_package(glm REQUIRED)
-
-if(NOT GLEW_FOUND)
-  message (FATAL_ERROR "Cannot find GLEW")
-endif()
-
 find_package(OpenAL 1.19.1 REQUIRED)
-
-if (NOT OPENAL_FOUND)
-  message (FATAL_ERROR "Cannot find OpenAL")
-endif()
-
+find_package(Alure 1.2 REQUIRED)
 find_package(EnTT 3.12.0 REQUIRED)
-
-if (NOT EnTT_FOUND)
-  message (FATAL_ERROR "Cannot find EnTT")
-endif()
-
 find_package(effolkronium_random REQUIRED)
+find_package(GTest 1.10.0 REQUIRED)
 
 add_executable(pong "")
 
 string(TOLOWER "${CMAKE_BUILD_TYPE}" build_type)
 if (build_type STREQUAL "release")
-  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    target_compile_options(pong 
-      PRIVATE
-        /O2
-    )
-  else()
     target_compile_options(pong
       PRIVATE 
         -O2 -DNDEBUG
     )
-  endif()
 else()
-  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    target_compile_options(pong 
-      PRIVATE
-        /W4 /w44365 /external:W3 /WX
-    )
-  else()
     target_compile_options(pong
       PRIVATE 
         -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror
     )
-  endif()
 endif()
 
 target_link_libraries(pong
@@ -73,9 +56,7 @@ target_link_libraries(pong
     GLEW::glew
     OpenGL::GL
     openal
-    alure
-    EnTT::EnTT
-    effolkronium_random
+    Alure::Alure
 )
 
 target_include_directories(pong
@@ -83,12 +64,12 @@ target_include_directories(pong
     ${PROJECT_SOURCE_DIR}/include
 )
 
+add_subdirectory(source)
+
 target_compile_definitions(pong
   PRIVATE
     CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}/share/pong
 )
-
-add_subdirectory(source)
 
 install(TARGETS pong RUNTIME DESTINATION games
         PERMISSIONS
@@ -96,6 +77,7 @@ install(TARGETS pong RUNTIME DESTINATION games
           GROUP_READ GROUP_EXECUTE
           WORLD_READ WORLD_EXECUTE
 )
+
 install(DIRECTORY audio glsl DESTINATION share/pong
         FILE_PERMISSIONS
           OWNER_READ
