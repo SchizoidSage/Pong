@@ -10,3 +10,5 @@ To build and install from source:
 4. sudo cmake --install .
 
 This will create the "pong" executable and install it in /usr/local/games. Note: leaving out step 4 will cause errors at runtime, since the program excepts the necessary resource files to be installed in /usr/local.
+
+This program has been built and tested on a Debian-based Linux environment. It has not been tested on Windows, Mac or RPM-based Linux environments, and may not work there.
