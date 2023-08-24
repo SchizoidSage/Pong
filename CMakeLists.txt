@@ -27,7 +27,7 @@ project(Pong
 include(GNUInstallDirs)
 include(ExternalProject)
 
-# Set required settings
+# Set required variables
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -63,6 +63,8 @@ ExternalProject_Add(${PROJECT_NAME}_core
   BUILD_ALWAYS ON
 )
 
+# Create installation targets
+
 install(
   DIRECTORY 
     ${STAGED_INSTALL_PREFIX}/
@@ -73,25 +75,39 @@ install(
 
 # Configure CPack
 
+set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_VENDOR SchizoidSage)
-set(CPACK_PACKAGE_DESCRIPTION "A simple Pong implementation.")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README.md")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Pong: A simple Pong implementation")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/COPYING")
+set(CPACK_PACKAGING_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_CHECKSUM SHA256)
-set(CPACK_GENERATOR "DEB;RPM")
+
 set(CPACK_SOURCE_GENERATOR "TGZ;TBZ2")
-set(CPACK_SOURCE_IGNORE_FILES "\.git*;build")
+set(CPACK_SOURCE_IGNORE_FILES "\.git*;${PROJECT_BINARY_DIR}")
+
+set(CPACK_GENERATOR "DEB;RPM")
+
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER SchizoidSage)
+set(CPACK_DEBIAN_PACKAGE_SECTION "games")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS 
-  "libsdl2-2.0-0 (>=2.0.16),
-   libopengl0 (>=1.3.4),
-   libglew2.1 (>=2.1.0),
-   libopenal1 (>=1.19.1),
+  "libsdl2-2.0-0 (>=2.0.16),\
+   libgl1 (>=1.3.4),\
+   libglew2.1 (>=2.1.0),\
+   libopenal1 (>=1.19.1),\
    libalure1 (>=1.2)"
 )
+
+set(CPACK_RPM_PACKAGE_RELEASE "1")
+set(CPACK_RPM_PACKAGE_LICENSE "GPLv3+")
 set(CPACK_RPM_PACKAGE_REQUIRES
-  "mesa-libGL >= 21.2.6,
-   SDL2 >= 2.0.16,
-   glew >= 2.1.0,
-   openal-soft >= 1.19.1,
+  "mesa-libGL >= 21.2.6,\
+   SDL2 >= 2.0.16,\
+   glew >= 2.1.0,\
+   openal-soft >= 1.19.1,\
    alure >= 1.2"
 )
+
 include(CPack)
