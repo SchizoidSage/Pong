@@ -28,7 +28,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(OpenGL 1.3.4 REQUIRED)
+find_package(OpenGL 1.3.4)
+
+if(NOT OPENGL_FOUND)
+  message(FATAL_ERROR 
+    "Could not find OpenGL.\n"
+    "In order to build this project from source, your system must have the OpenGL development files installed.\n"
+    "These files can usually be installed through your distro's package manager, though the package name varies.\n"
+    "On Debian-based distros (like Ubuntu), please run this command: 'sudo apt install libgl1-mesa-dev'.\n"
+    "On Fedora, please run this command: 'sudo dnf install mesa-libGL-devel'."
+  )
+endif()
 
 FetchContent_Declare(SDL2
   GIT_REPOSITORY    https://github.com/libsdl-org/SDL.git
