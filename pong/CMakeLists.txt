@@ -41,7 +41,6 @@ FetchContent_MakeAvailable(
 
 add_executable(pong "")
 
-message(STATUS "CMAKE_BUILD_TYPE " "${CMAKE_BUILD_TYPE}")
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   target_compile_options(pong
     PRIVATE 
