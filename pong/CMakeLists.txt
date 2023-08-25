@@ -16,87 +16,26 @@
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ]]
 
-cmake_minimum_required(VERSION 3.25.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.18.4 FATAL_ERROR)
 project(Pong_core LANGUAGES CXX)
-
-include(FetchContent)
-include(GNUInstallDirs)
 
 cmake_policy(SET CMP0005 NEW)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(FetchContent)
 
-find_package(OpenGL 1.3.4)
-
-if(NOT OPENGL_FOUND)
-  message(FATAL_ERROR 
-    "Could not find OpenGL.\n"
-    "In order to build this project from source, your system must have the OpenGL development files installed.\n"
-    "These files can usually be installed through your distro's package manager, though the package name varies.\n"
-    "On Debian-based distros (like Ubuntu), please run this command: 'sudo apt install libgl1-mesa-dev'.\n"
-    "On Fedora, please run this command: 'sudo dnf install mesa-libGL-devel'."
-  )
-endif()
-
-FetchContent_Declare(SDL2
-  GIT_REPOSITORY    https://github.com/libsdl-org/SDL.git
-  GIT_TAG           release-2.0.16
-  SYSTEM
-  FIND_PACKAGE_ARGS 2.0.16
-)
-FetchContent_Declare(googletest
-  GIT_REPOSITORY    https://github.com/google/googletest.git
-  GIT_TAG           release-1.10.0
-  SYSTEM
-  FIND_PACKAGE_ARGS 1.10.0 NAMES GTest
-)
-FetchContent_Declare(GLEW
-  GIT_REPOSITORY    https://github.com/nigels-com/glew.git
-  GIT_TAG           glew-2.1.0
-  SYSTEM
-  FIND_PACKAGE_ARGS 2.1.0
-)
-FetchContent_Declare(glm
-  GIT_REPOSITORY    https://github.com/g-truc/glm.git
-  GIT_TAG           0.9.9.8
-  SYSTEM
-  FIND_PACKAGE_ARGS 
-)
-FetchContent_Declare(OpenAL
-  GIT_REPOSITORY    https://github.com/kcat/openal-soft.git
-  GIT_TAG           openal-soft-1.19.1
-  SYSTEM
-  FIND_PACKAGE_ARGS 1.19.1
-)
-FetchContent_Declare(Alure
-  GIT_REPOSITORY    https://repo.or.cz/alure.git
-  GIT_TAG           alure-1.2
-  SYSTEM
-  FIND_PACKAGE_ARGS 1.2
-)
-FetchContent_Declare(EnTT
-  GIT_REPOSITORY     https://github.com/skypjack/entt.git
-  GIT_TAG            v3.12.0
-  SYSTEM
-  FIND_PACKAGE_ARGS  3.12.0
-)
+find_package(OpenGL 1.3.4 REQUIRED)
+find_package(OpenAL 1.19.1 REQUIRED)
+find_package(SDL2 2.0.16 REQUIRED)
+find_package(GLEW 2.1.0 REQUIRED)
+find_package(glm REQUIRED)
+find_package(Alure 1.2 REQUIRED)
+find_package(EnTT 3.12.0 REQUIRED)
 FetchContent_Declare(effolkronium_random
-  GIT_REPOSITORY     https://github.com/effolkronium/random.git
-  GIT_TAG            v1.5.0
-  SYSTEM
-  FIND_PACKAGE_ARGS  1.5.0
+  GIT_REPOSITORY  https://github.com/effolkronium/random.git
+  GIT_TAG         v1.5.0
 )
 
 FetchContent_MakeAvailable(
-  SDL2
-  googletest
-  GLEW
-  glm
-  OpenAL
-  Alure
-  EnTT 
   effolkronium_random
 )
 
@@ -125,6 +64,8 @@ target_link_libraries(pong
     EnTT::EnTT
     effolkronium_random
 )
+
+include(GNUInstallDirs)
 
 target_include_directories(pong
   PRIVATE

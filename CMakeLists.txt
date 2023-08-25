@@ -16,7 +16,7 @@
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ]]
 
-cmake_minimum_required(VERSION 3.25.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.18.4 FATAL_ERROR)
 project(Pong 
   VERSION 1.0 
   DESCRIPTION "A simple Pong implementation."
@@ -25,13 +25,14 @@ project(Pong
 )
 
 include(GNUInstallDirs)
-include(ExternalProject)
 
 # Set required variables
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+option(INSTALL_DEPS "Installs dependencies" ON)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
@@ -44,9 +45,16 @@ set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+# Add dependencies
+
+add_subdirectory(external/upstream)
+
 # Create Pong executable
 
+include(ExternalProject)
 ExternalProject_Add(${PROJECT_NAME}_core
+  DEPENDS
+    EnTT_external
   SOURCE_DIR
     ${CMAKE_CURRENT_LIST_DIR}/pong
   CMAKE_ARGS
@@ -67,11 +75,45 @@ ExternalProject_Add(${PROJECT_NAME}_core
 
 install(
   DIRECTORY 
-    ${STAGED_INSTALL_PREFIX}/
+    ${STAGED_INSTALL_PREFIX}/games/
   DESTINATION
-    .
+    games
   USE_SOURCE_PERMISSIONS
 )
+
+install(
+  DIRECTORY 
+    ${STAGED_INSTALL_PREFIX}/share/
+  DESTINATION
+    share
+  USE_SOURCE_PERMISSIONS
+)
+
+if(INSTALL_DEPS)
+  install(
+    DIRECTORY 
+      ${STAGED_INSTALL_PREFIX}/lib/
+    DESTINATION
+      lib
+    USE_SOURCE_PERMISSIONS
+  )
+
+  install(
+    DIRECTORY 
+      ${STAGED_INSTALL_PREFIX}/include/
+    DESTINATION
+      include
+    USE_SOURCE_PERMISSIONS
+  )
+
+  install(
+    DIRECTORY 
+      ${STAGED_INSTALL_PREFIX}/cmake/
+    DESTINATION
+      cmake
+    USE_SOURCE_PERMISSIONS
+  )
+endif()
 
 # Configure CPack
 
