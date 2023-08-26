@@ -73,7 +73,7 @@ target_include_directories(pong
 
 target_compile_definitions(pong
   PRIVATE
-    CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_DATADIR}/pong
+    CMAKE_INSTALL_PREFIX=${INSTALL_SHAREDIR}/pong
 )
 
 add_subdirectory(src)

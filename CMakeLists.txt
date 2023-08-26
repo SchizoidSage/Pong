@@ -32,8 +32,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(INSTALL_DEPS "Installs dependencies" ON)
-
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 endif()
@@ -68,6 +66,7 @@ ExternalProject_Add(${PROJECT_NAME}_core
     -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
     -DCMAKE_MODULE_PATH:PATH=${CMAKE_MODULE_PATH}
     -DINSTALL_GAMEDIR:PATH=${INSTALL_GAMEDIR}
+    -DINSTALL_SHAREDIR:PATH=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}
   BUILD_ALWAYS ON
 )
 
@@ -88,32 +87,6 @@ install(
     share
   USE_SOURCE_PERMISSIONS
 )
-
-if(INSTALL_DEPS)
-  install(
-    DIRECTORY 
-      ${STAGED_INSTALL_PREFIX}/lib/
-    DESTINATION
-      lib
-    USE_SOURCE_PERMISSIONS
-  )
-
-  install(
-    DIRECTORY 
-      ${STAGED_INSTALL_PREFIX}/include/
-    DESTINATION
-      include
-    USE_SOURCE_PERMISSIONS
-  )
-
-  install(
-    DIRECTORY 
-      ${STAGED_INSTALL_PREFIX}/cmake/
-    DESTINATION
-      cmake
-    USE_SOURCE_PERMISSIONS
-  )
-endif()
 
 # Configure CPack
 
