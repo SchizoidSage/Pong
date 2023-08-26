@@ -1,3 +1,5 @@
+![Screenshot_20230826_171912](https://github.com/SchizoidSage/Pong/assets/112087231/0dccc791-38a1-4495-a129-de4152f3ce71)
+
 # Pong
 A Simple Pong Game
 
