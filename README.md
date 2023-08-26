@@ -5,8 +5,8 @@ This is a simple Pong game as a test project to showcase the use of various game
 
 Before building, install the following dependencies from your package manager:
 
-- On Debian-based distros: `sudo apt install libgl1-mesa-dev libopenal-dev libsdl2-dev libglew-dev libglm-dev libalure-dev`
-- On Fedora: `sudo dnf install mesa-libGL-devel openal-soft-devel SDL2-devel glew-devel glm-devel alure-devel`
+- On Debian-based distros (like Ubuntu): `sudo apt install cmake libgl1-mesa-dev libopenal-dev libsdl2-dev libglew-dev libglm-dev libalure-dev`
+- On RPM-based distros (like Fedora): `sudo dnf install cmake mesa-libGL-devel openal-soft-devel SDL2-devel glew-devel glm-devel alure-devel`
 
 To build and install from source: 
 1. mkdir build && cd build
