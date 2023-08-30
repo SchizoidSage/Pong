@@ -98,7 +98,7 @@ if(DOXYGEN_FOUND)
   set(DOXYGEN_OUTPUT_DIRECTORY ${STAGED_INSTALL_PREFIX})
   doxygen_add_docs(Pong_docs
     include
-    WORKING_DIRECTORY ../pong
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/pong
   )
 else()
   message(STATUS "Could not find Doxygen; not generating documentation target.")
