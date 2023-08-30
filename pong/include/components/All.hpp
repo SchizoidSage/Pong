@@ -19,6 +19,13 @@
 #ifndef ALL_202305302006_HPP
 #define ALL_202305302006_HPP
 
+/*! \file       All.hpp
+*   \brief      Convenience file for including all components
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
+
 #include "components/Sprite.hpp"
 #include "components/Position.hpp"
 #include "components/Player.hpp"

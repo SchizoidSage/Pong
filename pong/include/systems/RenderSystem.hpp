@@ -30,10 +30,23 @@
 #include <array>
 #include <memory>
 
+//! \file RenderSystem.hpp
+
+/*! \brief			The graphics rendering system
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         Game
+*/
 class RenderSystem final
 {
 public:
   RenderSystem();
+
+  /*! Render all entities on screen
+  *
+  *   \param registry The entity registry
+  */
   void render(const entt::registry& registry) const;
 private:
   std::array<std::unique_ptr<const VertexArray>, 2> m_vertex_arrays{ };

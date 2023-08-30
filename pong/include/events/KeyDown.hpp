@@ -19,6 +19,14 @@
 #ifndef KEY_DOWN_202305281415_HPP
 #define KEY_DOWN_202305281415_HPP
 
+//! \file KeyDown.hpp
+
+/*! \brief      A struct defining the "keyboard key down" event
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU General Public License
+*   \sa         MoveSystem
+*/
 struct KeyDown final
 {
   int key_code{ -1 };

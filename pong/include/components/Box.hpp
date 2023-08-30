@@ -23,14 +23,34 @@
 #include <glm/vec2.hpp>
 #include <memory>
 
+//! \file Box.hpp
+
+/*! \brief			A collision box
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*
+*   A box surrounding an entity for collision detection
+*/
 class Box final
 {
 public:
+  /*! 
+  *   \param min  The coordinates of the box's bottom-left corner
+  *   \param max  The coordinates of the box's top-right corner
+  */
   Box(const glm::vec2& min, const glm::vec2& max)
     : m_object_box{ std::make_unique<const AABB>(min, max) },
       m_world_box{ std::make_unique<AABB>(min, max) }
   { }
-  AABB world_box() const noexcept { return *m_world_box; }
+
+  AABB world_box() const noexcept { return *m_world_box; } //!< Getter for box's world position
+  
+  /*! Setter for box's world position
+  *
+  *   \param position The box's new position in the game world
+  *   \param scale    The box's size scaling rate
+  */
   void set_world_box(const glm::vec2& position, float scale) noexcept;
 private:
   const std::unique_ptr<const AABB> m_object_box{ };

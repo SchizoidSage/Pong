@@ -19,22 +19,33 @@
 #ifndef PLAYER_202305261946_HPP
 #define PLAYER_202305261946_HPP
 
+//! \file Player.hpp
+
+/*! \brief			The player-controller left paddle
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
 class Player final
 {
 public:
+  /*! \brief  The player's possible movement directions
+  *   \sa     MoveSystem
+  */
   enum class MoveDirection
   {
-    STOPPED,
-    UP,
-    DOWN
+    STOPPED,  //!< Not moving
+    UP,       //!< Moving up
+    DOWN      //!< Moving down
   };
 
-  int speed() const noexcept { return m_speed; }
-  MoveDirection direction() const noexcept { return m_direction; }
-  void set_direction(MoveDirection direction) noexcept { m_direction = direction; }
+  int speed() const noexcept { return m_speed; }                    //!< Getter for movement speed
+  MoveDirection direction() const noexcept { return m_direction; }  //!< Getter for movement direction
+
+  void set_direction(MoveDirection direction) noexcept { m_direction = direction; } //!< Setter for movement direction
 private:  
   MoveDirection m_direction{ MoveDirection::STOPPED };
-  const int m_speed{ 150 };
+  constexpr int m_speed{ 150 };
 };
 
 #endif

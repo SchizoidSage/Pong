@@ -19,17 +19,24 @@
 #ifndef CONSTANTS_202303151959_HPP
 #define CONSTANTS_202303151959_HPP
 
+//! \file Constants.hpp
+
+/*! \brief			Useful global constants
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
 namespace Constants 
 {
-  inline constexpr int SCREEN_HEIGHT{ 768 };
-  inline constexpr float TOP_WALL{ SCREEN_HEIGHT / 2 };
-  inline constexpr float BOTTOM_WALL{ -(SCREEN_HEIGHT / 2) };
+  inline constexpr int SCREEN_HEIGHT{ 768 };                  //!< Screen height
+  inline constexpr float TOP_WALL{ SCREEN_HEIGHT / 2 };       //!< Y-coordinate of top wall
+  inline constexpr float BOTTOM_WALL{ -(SCREEN_HEIGHT / 2) }; //!< Y-coordinate of bottom wall
 
-  inline constexpr int SCREEN_WIDTH{ 1024 };
-  inline constexpr float LEFT_WALL{ -(SCREEN_WIDTH / 2) };
-  inline constexpr float RIGHT_WALL{ SCREEN_WIDTH / 2 };
+  inline constexpr int SCREEN_WIDTH{ 1024 };                  //!< Screen width
+  inline constexpr float LEFT_WALL{ -(SCREEN_WIDTH / 2) };    //!< X-coordinate of left wall
+  inline constexpr float RIGHT_WALL{ SCREEN_WIDTH / 2 };      //!< X-coordinate of right wall
 
-  inline constexpr float PI{ 3.141593f };
+  inline constexpr float PI{ 3.141593f };                     //!< Pi
 }
 
 #endif

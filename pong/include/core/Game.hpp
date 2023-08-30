@@ -27,18 +27,35 @@
 #include <entt/entt.hpp>
 #include <memory>
 
+//! \file Game.hpp
+
+/*! \brief			The main game class
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*
+*		This is the main game class, which contains all subsystems and runs the game loop.
+*/
 class Game final
 {
 public:
 	Game();
 
+	/*! The main game loop 
+	*
+	*		The main game loop runs continuously until the game ends.
+	*		The loop performs three tasks:
+	*			1. Check and process keyboard input
+	*			2. Update the game state
+	*			3. Generate video and audio output
+	*/
 	void run_loop();
 private:
 	void process_input();
 	void update_game() const;
 	void generate_output() const;
 
-	bool m_is_running{ true }; 
+	bool m_is_running{ true };
 
 	const std::unique_ptr<IOManager> m_io_manager{ std::make_unique<IOManager>() };
 	const std::unique_ptr<const Audio> m_audio{ std::make_unique<const Audio>() };
@@ -46,7 +63,7 @@ private:
 	const std::unique_ptr<entt::registry> m_registry{ std::make_unique<entt::registry>() };
 	const std::unique_ptr<entt::dispatcher> m_dispatcher{ std::make_unique<entt::dispatcher>() };
 
-	const std::unique_ptr<const CollisionSystem> m_collision_system{ std::make_unique<const CollisionSystem>() };
+	const std::unique_ptr<const CollisionSystem> m_collision_system{ std::make_unique<const CollisionSystem>() }; 
 	const std::unique_ptr<MoveSystem> m_move_system{ std::make_unique<MoveSystem>() };
 	const std::unique_ptr<const RenderSystem> m_render_system{ std::make_unique<const RenderSystem>() };
 };

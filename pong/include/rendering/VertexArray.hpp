@@ -22,11 +22,24 @@
 #include <GL/glew.h>
 #include <vector>
 
+//! \file VertexArray.hpp
+
+/*! \brief			An OpenGL vertex array
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         RenderSystem
+*/
 class VertexArray final
 {
 public:
+  /*! \param vertices The vertex buffer objects
+  *   \param indices  The indices
+  */
   VertexArray(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
   ~VertexArray();
+
+  /*! Activates this vertex array */
   void set_active() const;
 private:
   GLuint m_vertex_buffer[1]{ };

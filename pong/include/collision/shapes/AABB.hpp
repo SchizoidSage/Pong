@@ -21,21 +21,40 @@
 
 #include <glm/vec2.hpp>
 
+//! \file AABB.hpp
+
+/*! \brief			An axis-aligned bounding box (AABB) structure
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         Box, intersect(const AABB&, const AABB&), intersect(const LineSegment&, const AABB&, float&, Side&)
+*
+*		The axis-aligned bounding box (AABB) structure is an axis-aligned rectangle surrounding \
+*   an entity, used for collision detection.
+*/
 class AABB final
 {
 public:
+  /*! \param min  The coordinates of the AABB's bottom-left corner
+  *   \param max  The coordinates of the AABB's top-right corner
+  */
 	AABB(const glm::vec2& min, const glm::vec2& max) noexcept
     : m_min{ min },
       m_max{ max }
   { }
 
+  /*! Checks if a given point is located inside the AABB's bounds
+  *
+  *   \param point  A 2D point
+  *   \return       Returns true if the point is inside the AABB's bounds
+  */
   bool contains(const glm::vec2& point) const noexcept;
 
-  glm::vec2 min() const noexcept { return m_min; }
-  glm::vec2 max() const noexcept { return m_max; }
+  glm::vec2 min() const noexcept { return m_min; } //!< Getter for bottom-left corner
+  glm::vec2 max() const noexcept { return m_max; } //!< Getter for top-right corner
 
-  void set_min(const glm::vec2& min) noexcept { m_min = min; }
-  void set_max(const glm::vec2& max) noexcept { m_max = max; }
+  void set_min(const glm::vec2& min) noexcept { m_min = min; } //!< Setter for bottom-left corner
+  void set_max(const glm::vec2& max) noexcept { m_max = max; } //!< Setter for top-right corner
 private:
 	glm::vec2 m_min{ };
 	glm::vec2 m_max{ };

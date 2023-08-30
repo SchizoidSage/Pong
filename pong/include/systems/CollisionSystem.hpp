@@ -23,11 +23,25 @@
 #include <entt/entt.hpp>
 #include <memory>
 
-class CollisionSystem
+//! \file CollisionSystem.hpp
+
+/*! \brief			The collision detection and handling system
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         Game
+*/
+class CollisionSystem final
 {
 public:
   CollisionSystem();
   ~CollisionSystem();
+
+  /*! Checks for collisions and handles them
+  *
+  *   \param delta_time The time passed since the last frame
+  *   \param registry   The entity registry
+  */
   void update(float delta_time, entt::registry& registry) const;
 private:
   static void al_callback([[maybe_unused]] void*, [[maybe_unused]] unsigned int) { }

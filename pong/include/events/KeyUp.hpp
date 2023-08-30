@@ -19,6 +19,14 @@
 #ifndef KEY_UP_202305281420_HPP
 #define KEY_UP_202305281420_HPP
 
+//! \file KeyUp.hpp
+
+/*! \brief      A struct defining the "keyboard key up" event
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU General Public License
+*   \sa         MoveSystem
+*/
 struct KeyUp final
 {
   int key_code{ -1 };

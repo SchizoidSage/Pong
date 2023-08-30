@@ -21,17 +21,36 @@
 
 #include <glm/vec2.hpp>
 
+//! \file LineSegment.hpp
+
+/*! \brief			A line segment
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU General Public License
+*   \sa         intersect(const LineSegment&, const AABB&, float&, Side&)
+*
+*		A line representing an entity's movement trajectory.
+*/
 class LineSegment final
 {
 public:
+  /*! \param start  Starting point of the trajectory
+  *   \param end    Endpoint of the trajectory
+  */
   LineSegment(const glm::vec2& start, const glm::vec2& end) noexcept
     : m_start{ start },
       m_end{ end }
   { }
 
+  /*! Gets the point on the line that is some percentage along its length
+  *   
+  *   \param percentage The percentage along the line's length where the point should be found
+  *   \return           The 2D point located at some percentage along the line
+  */
   glm::vec2 point_on_segment(float percentage) const noexcept;
-  glm::vec2 start() const noexcept { return m_start; }
-  glm::vec2 end() const noexcept { return m_end; }
+  
+  glm::vec2 start() const noexcept { return m_start; }  //!< Getter for starting point
+  glm::vec2 end() const noexcept { return m_end; }      //!< Getter for endpoint
 private:
   const glm::vec2 m_start{ };
   const glm::vec2 m_end{ };

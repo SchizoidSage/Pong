@@ -19,12 +19,21 @@
 #ifndef AI_202305261732_HPP
 #define AI_202305261732_HPP
 
+//! \file Ai.hpp
+
+/*! \brief			The CPU-controlled right paddle
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*
+*   The right paddle is controlled by the computer and follows the ball.
+*/
 class Ai final
 {
 public:
-  int speed() const noexcept { return m_speed; }
+  int speed() const noexcept { return m_speed; } //!< Getter for movement speed
 private:
-  const int m_speed{ 150 };
+  constexpr int m_speed{ 150 };
 };
 
 #endif

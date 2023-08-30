@@ -21,18 +21,28 @@
 
 #include <glm/vec2.hpp>
 
+//! \file Ball.hpp
+
+/*! \brief			The ball
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
 class Ball final
 {
 public:
   Ball();
-  glm::vec2 direction() const noexcept { return m_direction; }
-  int speed() const noexcept { return m_speed; }
+
+  glm::vec2 direction() const noexcept { return m_direction; }  //!< Getter for movement direction
+  int speed() const noexcept { return m_speed; }                //!< Getter for movement speed
   
-  void set_direction(const glm::vec2& direction) noexcept { m_direction = direction; }
+  void set_direction(const glm::vec2& direction) noexcept { m_direction = direction; }  //!< Setter for movement direction
+
+  /*! Set a random direction for the ball */
   void set_random_direction();
 private:
   glm::vec2 m_direction{ };
-  const int m_speed{ 200 };
+  constexpr int m_speed{ 200 };
 };
 
 #endif

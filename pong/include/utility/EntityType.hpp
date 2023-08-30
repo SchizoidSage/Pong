@@ -19,10 +19,18 @@
 #ifndef ENTITY_TYPE_202305281913_HPP
 #define ENTITY_TYPE_202305281913_HPP
 
+//! \file EntityType.hpp
+
+/*! \brief			The type of an entity
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         Sprite
+*/
 enum class EntityType
 {
-  BALL,
-  PADDLE
+  BALL,   //!< A ball
+  PADDLE  //!< A paddle
 };
 
 #endif

@@ -23,12 +23,31 @@
 #include <glm/mat4x4.hpp>
 #include <string>
 
+//! \file Shader.hpp
+
+/*! \brief			An OpenGL shader program
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         RenderSystem
+*/
 class Shader final
 {
 public:
+  /*! \param vertex_shader    Path to vertex shader's GLSL source code file
+  *   \param fragment_shader  Path to fragment shader's GLSL source code file
+  */
   Shader(const char* vertex_shader, const char* fragment_shader);
   ~Shader();
+
+  /*! Activates this shader program */
   void set_active() const;
+
+  /*! Sets a matrix(4x4) uniform variable in the active shader program
+  *
+  *   \param uniform_name Name of the uniform variable
+  *   \param matrix       The matrix
+  */
   void set_uniform(const char* uniform_name, const glm::mat4& matrix) const;
 private:
   std::string read_shader_source(const char* file_path) const;

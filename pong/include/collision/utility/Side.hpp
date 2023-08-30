@@ -19,12 +19,22 @@
 #ifndef SIDE_202305211549_HPP
 #define SIDE_202305211549_HPP
 
+//! \file Side.hpp
+
+/*! \brief			A side of an AABB
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         AABB, intersect(const LineSegment&, const AABB&, float&, Side&), test_side_plane(float, float, float, Side, std::vector<std::pair<float, Side>>&)
+*
+*   An enum which helps determine which side of an AABB was involved in a collision
+*/
 enum class Side 
 {
-  MIN_X,
-  MAX_X,
-  MIN_Y,
-  MAX_Y
+  MIN_X,  //!< The left side
+  MAX_X,  //!< The right side
+  MIN_Y,  //!< The bottom
+  MAX_Y   //!< The top
 };
 
 #endif

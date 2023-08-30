@@ -19,11 +19,22 @@
 #ifndef AUDIO_202307111945_H
 #define AUDIO_202307111945_H
 
+//! \file Audio.hpp
+
+/*! \brief			The audio manager
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*   \sa         Game
+*
+*   This class manages the audio subsystem.
+*/
 class Audio final
 {
 public:
   Audio();
   ~Audio();
+  /*! Checks and updates the audio state */
   void update() const;
 };
 

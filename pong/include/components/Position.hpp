@@ -21,15 +21,31 @@
 
 #include <glm/vec2.hpp>
 
+//! \file Position.hpp
+
+/*! \brief			The 2D position of an entity
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
 class Position final
 {
 public:
+  /*! \param x The X-coordinate
+  *   \param y The Y-coordinate
+  */
   Position(double x, double y) noexcept
     : m_position{ x, y }
   { }
 
-  glm::vec2 position() const noexcept { return m_position; }
-  void set_position(const glm::vec2& position) noexcept { m_position = position; }
+  glm::vec2 position() const noexcept { return m_position; }  //!< Getter for position
+
+  void set_position(const glm::vec2& position) noexcept { m_position = position; } //!< Setter for position
+
+  /*! Increases the position's coordinates by the given vector
+  *
+  *   \param increment  The vector by which the current position must be incremented
+  */
   void increment_position(const glm::vec2& increment) noexcept;
 private:
   glm::vec2 m_position{ };

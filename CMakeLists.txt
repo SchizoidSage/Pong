@@ -88,6 +88,22 @@ install(
   USE_SOURCE_PERMISSIONS
 )
 
+# Add documentation target
+
+find_package(Doxygen 1.9.1 QUIET
+  OPTIONAL_COMPONENTS dot mscgen dia
+)
+
+if(DOXYGEN_FOUND)
+  set(DOXYGEN_OUTPUT_DIRECTORY ${STAGED_INSTALL_PREFIX})
+  doxygen_add_docs(Pong_docs
+    include
+    WORKING_DIRECTORY ../pong
+  )
+else()
+  message(STATUS "Could not find Doxygen; not generating documentation target.")
+endif()
+
 # Configure CPack
 
 include(cmake/CMakeCPack.cmake)
