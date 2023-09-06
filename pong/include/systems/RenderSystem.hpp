@@ -22,7 +22,7 @@
 #include "rendering/VertexArray.hpp"
 #include "rendering/Shader.hpp"
 #include "utility/Constants.hpp"
-#include "utility/Macro.hpp"
+#include "utility/GetPath.hpp"
 #include <entt/entt.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -50,7 +50,7 @@ public:
   void render(const entt::registry& registry) const;
 private:
   std::array<std::unique_ptr<const VertexArray>, 2> m_vertex_arrays{ };
-  const std::unique_ptr<const Shader> m_shader{ std::make_unique<const Shader>(STR(CMAKE_INSTALL_PREFIX) "/glsl/vert_shader.glsl", STR(CMAKE_INSTALL_PREFIX) "/glsl/frag_shader.glsl") };	
+  const std::unique_ptr<const Shader> m_shader{ std::make_unique<const Shader>(get_path("share/pong/glsl/vert_shader.glsl").c_str(), get_path("share/pong/glsl/frag_shader.glsl").c_str()) };
   const glm::mat4 m_view_matrix{ glm::translate(glm::mat4(1.f), glm::vec3(-0.f, -0.f, -0.f)) };
 	const glm::mat4 m_proj_matrix{ glm::ortho(Constants::LEFT_WALL, Constants::RIGHT_WALL, Constants::BOTTOM_WALL, Constants:: TOP_WALL, -1.f, 1.f) };
 };

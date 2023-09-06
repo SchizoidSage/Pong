@@ -45,7 +45,7 @@ public:
   void set_direction(MoveDirection direction) noexcept { m_direction = direction; } //!< Setter for movement direction
 private:  
   MoveDirection m_direction{ MoveDirection::STOPPED };
-  constexpr int m_speed{ 150 };
+  const int m_speed{ 150 };
 };
 
 #endif

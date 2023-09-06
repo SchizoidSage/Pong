@@ -17,7 +17,7 @@
 ]]
 
 cmake_minimum_required(VERSION 3.18.4 FATAL_ERROR)
-project(Pong_core LANGUAGES CXX)
+project(Pong_core LANGUAGES C CXX)
 
 cmake_policy(SET CMP0005 NEW)
 
@@ -69,11 +69,6 @@ include(GNUInstallDirs)
 target_include_directories(pong
   PRIVATE
     ${PROJECT_SOURCE_DIR}/include
-)
-
-target_compile_definitions(pong
-  PRIVATE
-    CMAKE_INSTALL_PREFIX=${INSTALL_SHAREDIR}/pong
 )
 
 add_subdirectory(src)

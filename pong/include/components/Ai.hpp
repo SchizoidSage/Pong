@@ -33,7 +33,7 @@ class Ai final
 public:
   int speed() const noexcept { return m_speed; } //!< Getter for movement speed
 private:
-  constexpr int m_speed{ 150 };
+  const int m_speed{ 150 };
 };
 
 #endif

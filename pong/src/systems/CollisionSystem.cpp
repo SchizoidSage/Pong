@@ -24,7 +24,7 @@
 #include "components/Position.hpp"
 #include "components/Sprite.hpp"
 #include "components/Box.hpp"
-#include "utility/Macro.hpp"
+#include "utility/GetPath.hpp"
 #include <entt/entt.hpp>
 #include <AL/al.h>
 #include <AL/alure.h>
@@ -37,8 +37,7 @@ CollisionSystem::CollisionSystem()
   if(alGetError() != AL_NO_ERROR) {
     throw std::runtime_error{ "Failed to create OpenAL source!\n" };
   }
-
-  m_buffer = alureCreateBufferFromFile(STR(CMAKE_INSTALL_PREFIX) "/audio/beep.wav");
+  m_buffer = alureCreateBufferFromFile(get_path("share/pong/audio/beep.wav").c_str());
   if(!m_buffer) {
     alDeleteSources(1, &m_source);
     throw std::runtime_error{ std::string{ "Failed to create OpenAL buffer: " } + alureGetErrorString() + '\n' };

@@ -16,10 +16,23 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef MACRO_202308102050_HPP
-#define MACRO_202308102050_HPP
+#ifndef GET_PATH_202309051810_HPP
+#define GET_PATH_202309051810_HPP
 
-#define BASIC_STR(x) #x
-#define STR(x) BASIC_STR(x)
+#include <filesystem>
+
+/*! \file       GetPath.hpp
+*   \brief			Helper functions for finding folders and executables
+*   \author			SchizoidSage
+*   \date				2023
+*		\copyright	GNU GPLv3+
+*/
+
+/*! Finds an absolute path, starting from current program's parent directory
+*
+*   \param suffix The relative path to search in relation to this program's parent directory
+*   \return       The absolute path to the given relative path
+*/
+std::filesystem::path get_path(const char* suffix);
 
 #endif
