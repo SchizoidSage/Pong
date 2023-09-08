@@ -29,12 +29,12 @@ std::filesystem::path get_path(const char* suffix)
 
   length = wai_getExecutablePath(nullptr, 0, &dirname_length);
   if (length <= 0) {
-    throw std::runtime_error{ "Whereami: Could not get executable path. This program may not support your platform." };
+    throw std::runtime_error{ "GetPath: Could not get executable path. This program may not support your platform." };
   }
 
   path = static_cast<char*>(std::malloc(static_cast<size_t>(length + 1)));
   if (!path) {
-    throw std::runtime_error{ "Whereami: Could not allocate enough heap memory." };
+    throw std::runtime_error{ "GetPath: Could not allocate enough heap memory." };
   }
 
   wai_getExecutablePath(path, length, &dirname_length);

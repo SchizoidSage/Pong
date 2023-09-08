@@ -20,7 +20,7 @@ To build and install from source:
 
 This will create the "pong" executable and install it in /usr/local/games. 
 
-Note: leaving out the installl step will cause errors at runtime, since the program expects the necessary resource files to be installed in /usr/local (or the directory specified by CMAKE_INSTALL_PREFIX if you specify it in step 2).
+Note: leaving out the install step will cause errors at runtime, since the program expects the necessary resource files to be installed in /usr/local (or the directory specified by CMAKE_INSTALL_PREFIX if you specify it in step 2).
 
 This program has been built and tested on a Debian-based Linux environment. It has not been tested on Windows or Mac, and may not work there.
 

@@ -47,6 +47,11 @@ set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/stage)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
+# Add optional variables
+
+option(GENERATE_DOCS "Determines whether Doxygen documentation should be generated.")
+option(PERFORM_TESTS "Determines whether Pong tests should be run.")
+
 # Add dependencies
 
 add_subdirectory(external/upstream)
@@ -62,19 +67,21 @@ ExternalProject_Add(${PROJECT_NAME}_core
   CMAKE_ARGS
     -DCMAKE_INSTALL_PREFIX=${STAGED_INSTALL_PREFIX}
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-    -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
     -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
     -DCMAKE_CXX_EXTENSIONS=${CMAKE_CXX_EXTENSIONS}
     -DCMAKE_CXX_STANDARD_REQUIRED=${CMAKE_CXX_STANDARD_REQUIRED}
     -DCMAKE_C_STANDARD=${CMAKE_C_STANDARD}
     -DCMAKE_C_EXTENSIONS=${CMAKE_C_EXTENSIONS}
     -DCMAKE_C_STANDARD_REQUIRED=${CMAKE_C_STANDARD_REQUIRED}
+    -DGENERATE_DOCS=${GENERATE_DOCS}
+    -DPERFORM_TESTS=${PERFORM_TESTS}
   CMAKE_CACHE_ARGS
     -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
     -DCMAKE_MODULE_PATH:PATH=${CMAKE_MODULE_PATH}
     -DINSTALL_GAMEDIR:PATH=${INSTALL_GAMEDIR}
     -DINSTALL_SHAREDIR:PATH=${CMAKE_INSTALL_FULL_DATADIR}
-  BUILD_ALWAYS ON
+  BUILD_ALWAYS        ON
+  TEST_AFTER_INSTALL  ${PERFORM_TESTS}
 )
 
 # Create installation targets
@@ -94,22 +101,6 @@ install(
     share
   USE_SOURCE_PERMISSIONS
 )
-
-# Add documentation target
-
-find_package(Doxygen 1.9.1 QUIET
-  OPTIONAL_COMPONENTS dot mscgen dia
-)
-
-if(DOXYGEN_FOUND)
-  set(DOXYGEN_OUTPUT_DIRECTORY ${STAGED_INSTALL_PREFIX})
-  doxygen_add_docs(Pong
-    include
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/pong
-  )
-else()
-  message(STATUS "Could not find Doxygen; not generating documentation target.")
-endif()
 
 # Configure CPack
 

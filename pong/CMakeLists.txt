@@ -34,27 +34,36 @@ FetchContent_Declare(effolkronium_random
   GIT_REPOSITORY  https://github.com/effolkronium/random.git
   GIT_TAG         v1.5.0
 )
+set(FETCHCONTENT_PACKAGES effolkronium_random)
 
-FetchContent_MakeAvailable(
-  effolkronium_random
-)
+if(PERFORM_TESTS)
+  FetchContent_Declare(googletest
+    GIT_REPOSITORY  https://github.com/google/googletest.git
+    GIT_TAG         release-1.10.0
+  )
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  list(APPEND FETCHCONTENT_PACKAGES googletest)
+endif()
+
+FetchContent_MakeAvailable(${FETCHCONTENT_PACKAGES})
 
 add_executable(pong "")
+add_library(pong_lib STATIC "")
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
-  target_compile_options(pong
-    PRIVATE 
+  target_compile_options(pong_lib
+    PUBLIC 
       -O2 -DNDEBUG
   )
 else()
-  target_compile_options(pong
-    PRIVATE 
+  target_compile_options(pong_lib
+    PUBLIC 
       -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror
   )
 endif()
 
-target_link_libraries(pong
-  PRIVATE 
+target_link_libraries(pong_lib
+  PUBLIC 
     SDL2::SDL2
     GLEW::glew
     OpenGL::GL
@@ -66,12 +75,56 @@ target_link_libraries(pong
 
 include(GNUInstallDirs)
 
-target_include_directories(pong
-  PRIVATE
+target_include_directories(pong_lib
+  PUBLIC
     ${PROJECT_SOURCE_DIR}/include
 )
 
 add_subdirectory(src)
+
+target_link_libraries(pong
+  PRIVATE
+    pong_lib
+)
+
+# Add testing target
+
+if(PERFORM_TESTS)
+  enable_testing()
+
+  add_executable(pong_test "")
+  target_link_libraries(pong_test
+    PRIVATE
+      pong_lib
+      gtest_main
+  )
+
+  add_subdirectory(tests)
+
+  include(GoogleTest)
+  gtest_discover_tests(pong_test)
+endif()
+
+# Add documentation target
+
+if(GENERATE_DOCS)
+  find_package(Doxygen 1.9.1 QUIET
+    OPTIONAL_COMPONENTS dot mscgen dia
+  )
+
+  if(DOXYGEN_FOUND)
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX})
+    set(DOXYGEN_PROJECT_NAME Pong)
+    set(DOXYGEN_EXCLUDE_PATTERNS whereami.h)
+    doxygen_add_docs(Pong_docs
+      include 
+      docs
+      ALL
+    )
+  else()
+    message(STATUS "Could not find Doxygen; not generating documentation target.")
+  endif()
+endif()
 
 # Add install targets for program and resource files
 

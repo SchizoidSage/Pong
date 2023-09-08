@@ -42,10 +42,10 @@ Shader::Shader(const char* vertex_shader, const char* fragment_shader)
   glShaderSource(m_fragment_shader, 1, &fragment_shader_source_str, NULL);
 
   if (!compile_shader(m_vertex_shader)) {
-    throw std::runtime_error{ "Vertex shader compilation failed!\n" };
+    throw std::runtime_error{ "Vertex shader compilation failed!" };
   }
   if (!compile_shader(m_fragment_shader)) {
-    throw std::runtime_error{ "Fragment shader compilation failed!\n" };
+    throw std::runtime_error{ "Fragment shader compilation failed!" };
   }
 
   m_shader_program = glCreateProgram();
@@ -53,7 +53,7 @@ Shader::Shader(const char* vertex_shader, const char* fragment_shader)
   glAttachShader(m_shader_program, m_fragment_shader);
 
   if (!link_program(m_shader_program)) {
-    throw std::runtime_error{ "Shader program linking failed!\n" };
+    throw std::runtime_error{ "Shader program linking failed!" };
   }
 }
 

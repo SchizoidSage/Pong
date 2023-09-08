@@ -16,24 +16,13 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "io/Audio.hpp"
-#include <AL/alure.h>
-#include <stdexcept>
-#include <string>
+#include "collision/utility/Intersect.hpp"
+#include "gtest/gtest.h"
 
-Audio::Audio()
-{
-  if(!alureInitDevice(nullptr, nullptr)) {
-    throw std::runtime_error{ std::string{ "Failed to open OpenAL device: " } + alureGetErrorString() };
+namespace {
+  TEST(CollisionUtilityTest, NearZero) {
+    EXPECT_FALSE(near_zero(1));
+    EXPECT_TRUE(near_zero(0.0001f));
+    EXPECT_TRUE(near_zero(0.5f, 0.6f));
   }
-}
-
-Audio::~Audio()
-{
-  alureShutdownDevice();
-}
-
-void Audio::update() const
-{
-  alureUpdate();
 }

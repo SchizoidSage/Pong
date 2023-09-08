@@ -27,7 +27,7 @@
 IOManager::IOManager()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		throw std::runtime_error{ std::string{ "Unable to initialize SDL! SDL Error: " } + SDL_GetError() + '\n' };
+		throw std::runtime_error{ std::string{ "Unable to initialize SDL! SDL Error: " } + SDL_GetError() };
 	}
 	
   SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
@@ -44,13 +44,13 @@ IOManager::IOManager()
 	);
 
 	if (!m_window) {
-		throw std::runtime_error{ std::string{ "Window could not be created! SDL Error: " } + SDL_GetError() + '\n' };
+		throw std::runtime_error{ std::string{ "Window could not be created! SDL Error: " } + SDL_GetError() };
 	}
 
   m_context = SDL_GL_CreateContext(m_window);
 
   if (!m_context) {
-		throw std::runtime_error{ std::string{ "OpenGL context could not be created! SDL Error: " } + SDL_GetError() + '\n' };
+		throw std::runtime_error{ std::string{ "OpenGL context could not be created! SDL Error: " } + SDL_GetError() };
   }
 
   if (auto glewError{ glewInit() }; glewError != GLEW_OK) {
@@ -59,7 +59,7 @@ IOManager::IOManager()
   }
 
   if (SDL_GL_SetSwapInterval(1) < 0) {
-		throw std::runtime_error{ std::string{ "SDL failed to set VSync! SDL Error: " } + SDL_GetError() + '\n' };
+		throw std::runtime_error{ std::string{ "SDL failed to set VSync! SDL Error: " } + SDL_GetError() };
   }
 }
 

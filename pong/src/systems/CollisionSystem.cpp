@@ -35,12 +35,12 @@ CollisionSystem::CollisionSystem()
 {
   alGenSources(1, &m_source);
   if(alGetError() != AL_NO_ERROR) {
-    throw std::runtime_error{ "Failed to create OpenAL source!\n" };
+    throw std::runtime_error{ "Failed to create OpenAL source!" };
   }
   m_buffer = alureCreateBufferFromFile(get_path("share/pong/audio/beep.wav").c_str());
   if(!m_buffer) {
     alDeleteSources(1, &m_source);
-    throw std::runtime_error{ std::string{ "Failed to create OpenAL buffer: " } + alureGetErrorString() + '\n' };
+    throw std::runtime_error{ std::string{ "Failed to create OpenAL buffer: " } + alureGetErrorString() };
   }
 
   alSourcei(m_source, AL_BUFFER, static_cast<int>(m_buffer));
