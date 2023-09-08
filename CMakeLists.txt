@@ -102,6 +102,16 @@ install(
   USE_SOURCE_PERMISSIONS
 )
 
+if(GENERATE_DOCS)
+  install(
+    DIRECTORY
+      ${STAGED_INSTALL_PREFIX}/html/
+    DESTINATION
+      share/doc/pong-doc/html
+    USE_SOURCE_PERMISSIONS
+  )
+endif()
+
 # Configure CPack
 
 include(cmake/CMakeCPack.cmake)
