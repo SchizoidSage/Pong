@@ -1,0 +1,27 @@
+name: Pong-CMake
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+  GENERATE_DOCS: ON
+  PERFORM_TESTS: OFF
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: lukka/get-cmake@latest
+      with: 
+        cMakeVersion: 3.18.4
+    - name: Create build dir
+      run: mkdir ${{github.workspace}}/build
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGENERATE_DOCS=${{env.GENERATE_DOCS}} -DPERFORM_TESTS=${{env.PERFORM_TESTS}}
+    - name: Build Pong
+      run: cmake --build ${{github.workspace}}/build -j 4
+    - name: Package
+      run: cd ${{github.workspace}}/build && cpack --config CPackConfig.cmake && cpack --config CPackSourceConfig.cmake
