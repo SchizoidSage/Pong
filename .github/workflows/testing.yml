@@ -1,12 +1,10 @@
 name: Pong-Testing
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 env:
-  BUILD_TYPE: Debug
+  BUILD_TYPE: Release
   GENERATE_DOCS: OFF
   PERFORM_TESTS: OFF
 
@@ -24,3 +22,12 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGENERATE_DOCS=${{env.GENERATE_DOCS}} -DPERFORM_TESTS=${{env.PERFORM_TESTS}}
     - name: Build Pong
       run: cmake --build ${{github.workspace}}/build -j 4
+    - name: Packaging
+      run: cd build && cpack --config CPackConfig.cmake && cpack --config CPackSourceConfig.cmake
+    - name: Move artifacts
+      run: mkdir packages && mv Pong* packages
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2.1.1
+      with:
+        name: packages
+        path: packages/
