@@ -24,10 +24,13 @@ jobs:
       run: cmake --build ${{github.workspace}}/build -j 4
     - name: Packaging
       run: cd build && sudo cpack --config CPackConfig.cmake && sudo cpack --config CPackSourceConfig.cmake
-    - name: Move artifacts
-      run: mkdir packages && mv Pong-1.0-Linux.deb Pong-1.0-Linux.rpm Pong-1.0-Source.tar.gz Pong-1.0-Source.tar.bz2 packages
+    - name: Upload Deb Artifact
+      uses: actions/upload-artifact@v2.1.1
+      with:
+        name: deb-package
+        path: Pong-1.0-Linux.deb
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2.1.1
       with:
-        name: packages
-        path: packages/
+        name: rpm-package
+        path: Pong-1.0-Linux.rpm
