@@ -23,7 +23,7 @@ jobs:
     - name: Build Pong
       run: cmake --build ${{github.workspace}}/build -j 4
     - name: Packaging
-      run: cd build && cpack --config CPackConfig.cmake && cpack --config CPackSourceConfig.cmake
+      run: cd build && sudo cpack --config CPackConfig.cmake && cpack --config CPackSourceConfig.cmake
     - name: Move artifacts
       run: mkdir packages && mv Pong* packages
     - name: Upload Artifacts
