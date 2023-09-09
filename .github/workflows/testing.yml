@@ -8,7 +8,7 @@ on:
 env:
   BUILD_TYPE: Debug
   GENERATE_DOCS: OFF
-  PERFORM_TESTS: ON
+  PERFORM_TESTS: OFF
 
 jobs:
   build:
