@@ -3,6 +3,7 @@ name: Pong-CMake
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 env:
   BUILD_TYPE: Release
