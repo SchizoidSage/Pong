@@ -14,6 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: lukka/get-cmake@latest
+      with:
+        cMakeVersion: 3.18.4
     - name: Install dependencies
       run: sudo apt install libgl1-mesa-dev libopenal-dev libsdl2-dev libglew-dev libglm-dev libalure-dev
     - name: Create build dir
@@ -23,14 +25,9 @@ jobs:
     - name: Build Pong
       run: cmake --build ${{github.workspace}}/build -j 4
     - name: Packaging
-      run: cd build && sudo cpack --config CPackConfig.cmake && sudo cpack --config CPackSourceConfig.cmake
-    - name: Upload Deb Artifact
-      uses: actions/upload-artifact@v2.1.1
-      with:
-        name: deb-package
-        path: Pong-1.0-Linux.deb
+      run: sudo cpack --config build/CPackConfig.cmake -B packages
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2.1.1
       with:
-        name: rpm-package
-        path: Pong-1.0-Linux.rpm
+        name: packages
+        path: ${{github.workspace}}/packages/
